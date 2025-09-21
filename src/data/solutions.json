@@ -1,0 +1,27 @@
+[
+  {
+    "id": "government",
+    "title": "Government & Municipal Planning",
+    "description": "Enhancing urban planning, public works, and emergency response with data-driven GIS solutions for smarter, more efficient governance."
+  },
+  {
+    "id": "utilities",
+    "title": "Utilities (Water, Gas, Electricity)",
+    "description": "Optimizing asset management, network analysis, and outage response for utility providers to ensure reliable service delivery."
+  },
+  {
+    "id": "environment",
+    "title": "Environment & Conservation",
+    "description": "Leveraging remote sensing and spatial analysis for environmental monitoring, conservation planning, and sustainable resource management."
+  },
+  {
+    "id": "agriculture",
+    "title": "Agriculture & Forestry",
+    "description": "Driving precision agriculture and sustainable forestry with UAV mapping and data analytics to increase yields and reduce costs."
+  },
+  {
+    "id": "transportation",
+    "title": "Transportation & Logistics",
+    "description": "Improving route optimization, fleet management, and infrastructure planning with advanced spatial modeling and real-time data."
+  }
+]

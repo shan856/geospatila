@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Modernizing Urban Transit",
+    "client": "City of Metropolis",
+    "challenge": "<p>The city's public transport system was inefficient, with outdated routes causing long commute times and high operational costs.</p>",
+    "solution": "<p>We developed a custom web GIS portal that integrated real-time traffic data, ridership numbers, and demographic information to model and simulate new route scenarios instantly.</p>",
+    "impact": "Reduced average commute times by 15% and cut operational costs by 10%.",
+    "imageUrl": "/uploads/project_transit.png"
+  },
+  {
+    "id": 2,
+    "title": "Revolutionizing Farming with UAVs",
+    "client": "AgriCorp",
+    "challenge": "<p>The client needed to optimise the use of fertilisers and water across 50,000 hectares of variable terrain.</p>",
+    "solution": "<p>We deployed UAVs to capture high-resolution multispectral imagery. This data was processed to create detailed maps of crop health, allowing for precise, variable-rate application of resources.</p>",
+    "impact": "Boosted crop yields by 20% and reduced fertiliser usage by 25%.",
+    "imageUrl": "/uploads/project_uav.png"
+  }
+]

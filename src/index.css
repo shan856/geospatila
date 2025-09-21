@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Target the main editor area */
+.ql-editor {
+  color: white;
+}
+
+/* Target the toolbar icons */
+.ql-snow .ql-stroke {
+    stroke: white;
+}
+
+/* Target the dropdown picker labels */
+.ql-snow .ql-picker-label {
+    color: white;
+}
+
+/* Add this to the end of your src/index.css */
+
+.swiper-wrapper {
+  transition-timing-function: ease-in-out;
+}
+
+@keyframes kenburns-zoom-out {
+  from {
+    transform: scale(1.15);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* By default, all backgrounds are zoomed in */
+.swiper-slide .ken-burns-background {
+  transform: scale(1.15);
+}
+
+/* ONLY the ACTIVE slide will run the animation */
+.swiper-slide-active .ken-burns-background {
+  animation: kenburns-zoom-out 7.5s linear forwards;
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet {
+  background-color: #6b7280; /* gray-500 */
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet-active {
+  background-color: #FBBF24; /* yellow-400 */
+}

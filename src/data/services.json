@@ -1,0 +1,42 @@
+[
+  {
+    "id": "gis-dev",
+    "title": "Custom GIS Development",
+    "description": "We don't just use GIS software; we build it. Our development team creates bespoke applications tailored precisely to your workflow, including web, mobile, and desktop solutions."
+  },
+  {
+    "id": "data-science",
+    "title": "Spatial Data Science & Analytics",
+    "description": "Data is just noise until you find the signal. We specialize in turning raw spatial data into clear, actionable intelligence through predictive modeling, site suitability, and network analysis."
+  },
+  {
+    "id": "remote-sensing",
+    "title": "Advanced Remote Sensing",
+    "description": "Processing satellite, aerial, and drone imagery to uncover insights. We also handle LiDAR processing to transform 3D point clouds into detailed terrain models."
+  },
+  {
+    "id": "uav-drone",
+    "title": "UAV/Drone Mapping & Survey",
+    "description": "Deploying UAVs to capture high-resolution multispectral imagery for precise, variable-rate application of resources in sectors like agriculture and environmental monitoring."
+  },
+  {
+    "id": "geodatabase",
+    "title": "Geodatabase Architecture",
+    "description": "Designing and implementing robust and scalable geodatabase solutions to manage your spatial data effectively and securely."
+  },
+  {
+    "id": "gis-strategy",
+    "title": "GIS Strategy & Consultation",
+    "description": "Providing expert guidance to help you develop a comprehensive GIS strategy that aligns with your organization's goals and maximizes your return on investment."
+  },
+  {
+    "id": "web-dev",
+    "title": "Geo-enabled Web Development",
+    "description": "Building powerful, geo-enabled web applications and portals that bring your spatial data to life for customers and stakeholders."
+  },
+  {
+    "id": "new-service-1758448301715",
+    "title": "dinkachika",
+    "description": "asdasd"
+  }
+]

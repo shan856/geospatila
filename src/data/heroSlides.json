@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Innovating with GIS & Spatial Intelligence",
+    "subtitle": "Established in 2010, we turn complex geospatial data into actionable, intelligent insights.",
+    "imageUrl": "/uploads/hero-background.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Your Trusted Partner in Mapping Excellence",
+    "subtitle": "Delivering high-quality solutions with precision, innovation, and unwavering reliability for your success.",
+    "imageUrl": "/uploads/hero-background-2.png"
+  },
+  {
+    "id": 3,
+    "title": "Pioneering a Smarter, Connected World",
+    "subtitle": "Leveraging advanced analytics and cutting-edge technology to solve tomorrow's challenges today.",
+    "imageUrl": "/uploads/hero-background-3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Unlocking Your Competitive Edge",
+    "subtitle": "We integrate the power of location to provide a clearer path to success and measurable results.",
+    "imageUrl": "/uploads/hero-background-1.jpg"
+  }
+]
