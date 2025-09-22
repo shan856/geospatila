@@ -31,13 +31,14 @@ const ManageProjects = () => {
     })
     .then(res => res.json())
     .then(() => {
-        setProjects(updatedData);
-        setIsLoading(false);
-        alert('Changes saved successfully!');
+      // THIS IS THE CRITICAL CHANGE: Only update the local state AFTER the server confirms the save.
+      setProjects(updatedData);
+      setIsLoading(false);
+      alert('Changes saved successfully!');
     })
     .catch(err => {
-        setError('Failed to save changes.');
-        setIsLoading(false);
+      setError('Failed to save changes. Check the server console.');
+      setIsLoading(false);
     });
   };
 
@@ -56,9 +57,9 @@ const ManageProjects = () => {
 
   const handleAddNew = () => {
     setEditingProject({ 
-        id: `new-project-${Date.now()}`, 
+        id: `project-${Date.now()}`, 
         title: '', client: '', challenge: '', solution: '', impact: '',
-        imageUrl: '/uploads/placeholder.png'
+        imageUrl: '/uploads/placeholder.jpg'
     });
     setSelectedFile(null);
   };
@@ -76,6 +77,7 @@ const ManageProjects = () => {
   };
 
   const handleSaveForm = async () => {
+    setIsLoading(true);
     let projectToSave = { ...editingProject };
 
     if (selectedFile) {
@@ -84,14 +86,13 @@ const ManageProjects = () => {
 
       try {
         const uploadRes = await fetch(UPLOAD_URL, { method: 'POST', body: formData });
+        if (!uploadRes.ok) throw new Error('Image upload failed on server.');
+        
         const uploadData = await uploadRes.json();
-        if (uploadData.filePath) {
-          projectToSave.imageUrl = uploadData.filePath;
-        } else {
-          throw new Error('Image upload failed.');
-        }
+        projectToSave.imageUrl = uploadData.filePath;
       } catch (err) {
-        alert('Error uploading image. Please try again.');
+        alert(`Error uploading image: ${err.message}`);
+        setIsLoading(false);
         return;
       }
     }
@@ -103,6 +104,7 @@ const ManageProjects = () => {
         updatedProjects = [...projects, projectToSave];
     }
     
+    // Now that the image is uploaded (if any), save the updated JSON data
     saveData(updatedProjects);
     setEditingProject(null);
     setSelectedFile(null);
@@ -113,9 +115,9 @@ const ManageProjects = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-yellow-400">Manage Projects</h1>
-        <button onClick={handleAddNew} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Add New Project</button>
+      <h1 className="text-4xl font-bold text-yellow-400 mb-8">Manage Projects</h1>
+      <div className="text-right mb-4">
+          <button onClick={handleAddNew} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Add New Project</button>
       </div>
 
       {editingProject && (
@@ -134,7 +136,7 @@ const ManageProjects = () => {
             <div className="col-span-2 text-gray-900"><p className="text-sm text-gray-300 mb-1">Solution:</p><ReactQuill theme="snow" value={editingProject.solution} onChange={(val) => handleQuillChange(val, 'solution')} /></div>
           </div>
           <div className="mt-4">
-            <button onClick={handleSaveForm} className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg mr-2 hover:bg-green-600">Save Changes</button>
+            <button onClick={handleSaveForm} className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg mr-2 hover:bg-green-600" disabled={isLoading}>{isLoading ? 'Saving...' : 'Save Changes'}</button>
             <button onClick={() => setEditingProject(null)} className="bg-gray-600 text-white py-2 px-4 rounded-lg">Cancel</button>
           </div>
         </div>
