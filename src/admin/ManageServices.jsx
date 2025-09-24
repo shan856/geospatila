@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
-import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc, deleteDoc, orderBy, query } from 'firebase/firestore';
 
 const ManageServices = () => {
   const [services, setServices] = useState([]);
@@ -9,53 +9,33 @@ const ManageServices = () => {
 
   const fetchServices = async () => {
     setIsLoading(true);
-    try {
-      const servicesCollection = collection(db, 'services');
-      const servicesSnapshot = await getDocs(servicesCollection);
-      const servicesList = servicesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setServices(servicesList.sort((a, b) => a.title.localeCompare(b.title)));
-    } catch (error) {
-      alert("Failed to fetch services.");
-    }
+    const servicesQuery = query(collection(db, 'services'), orderBy('title'));
+    const servicesSnapshot = await getDocs(servicesQuery);
+    setServices(servicesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     setIsLoading(false);
   };
 
   useEffect(() => { fetchServices(); }, []);
 
   const handleSave = async () => {
-    if (!editingService || !editingService.title) {
-      alert("Title is required.");
-      return;
-    }
-    setIsLoading(true);
+    if (!editingService || !editingService.title) return alert("Title is required.");
     const serviceToSave = { ...editingService };
     const docRef = doc(db, 'services', serviceToSave.id);
-    try {
-      await setDoc(docRef, serviceToSave, { merge: true });
-      alert('Service saved successfully!');
-      setEditingService(null);
-      await fetchServices(); // Refresh the list
-    } catch (error) {
-      alert(`Error saving service: ${error.message}`);
-    }
-    setIsLoading(false);
+    await setDoc(docRef, serviceToSave, { merge: true });
+    alert('Service saved!');
+    setEditingService(null);
+    fetchServices();
   };
   
   const handleDelete = async (serviceId) => {
-    if (window.confirm('Are you sure you want to delete this service?')) {
-      setIsLoading(true);
-      try {
-        await deleteDoc(doc(db, 'services', serviceId));
-        alert('Service deleted!');
-        await fetchServices(); // Refresh the list
-      } catch (error) {
-        alert(`Error deleting service: ${error.message}`);
-      }
-      setIsLoading(false);
+    if (window.confirm('Are you sure?')) {
+      await deleteDoc(doc(db, 'services', serviceId));
+      alert('Service deleted!');
+      fetchServices();
     }
   };
 
-  if (isLoading && !services.length) return <p className="text-white">Loading Services...</p>;
+  if (isLoading) return <p className="text-white">Loading Services...</p>;
 
   return (
     <div>
@@ -63,7 +43,7 @@ const ManageServices = () => {
       <div className="text-right mb-4"><button onClick={() => setEditingService({ id: `service-${Date.now()}`, title: '', description: '' })} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Add New Service</button></div>
       {editingService && (
         <div className="bg-gray-800 p-6 rounded-lg mb-8">
-          <h2 className="text-2xl font-bold mb-4">{services.find(s => s.id === editingService.id) ? 'Edit Service' : 'Add New Service'}</h2>
+          <h2 className="text-2xl font-bold mb-4">Service Details</h2>
           <div className="space-y-4">
             <input type="text" value={editingService.title} onChange={(e) => setEditingService({...editingService, title: e.target.value})} placeholder="Service Title" className="w-full p-2 bg-gray-700 rounded text-white"/>
             <textarea value={editingService.description} onChange={(e) => setEditingService({...editingService, description: e.target.value})} placeholder="Service Description" rows="4" className="w-full p-2 bg-gray-700 rounded text-white"></textarea>
