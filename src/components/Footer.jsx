@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import { db } from '../firebaseConfig'; // Import the Firebase database instance
+import { db } from '../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
 const Footer = () => {
   const [contactInfo, setContactInfo] = useState({});
-
   useEffect(() => {
-    // Fetch the single 'contact' document from the 'single_pages' collection
     const fetchContact = async () => {
       try {
         const docRef = doc(db, 'single_pages', 'contact');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setContactInfo(docSnap.data());
-        } else {
-          console.log("No contact document found!");
-        }
-      } catch (error) {
-        console.error("Error fetching contact info:", error);
-      }
+        if (docSnap.exists()) setContactInfo(docSnap.data());
+      } catch (error) { console.error("Error fetching contact info:", error); }
     };
     fetchContact();
-  }, []); // The empty array ensures this runs only once on component mount
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-gray-400 py-12 border-t border-yellow-500/20">

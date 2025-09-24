@@ -14,19 +14,20 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch About
-      const aboutDoc = await getDoc(doc(db, 'single_pages', 'about'));
-      if (aboutDoc.exists()) setAboutData(aboutDoc.data());
-      
-      // Fetch First 3 Services
-      const servicesQuery = query(collection(db, 'services'), limit(3));
-      const servicesSnapshot = await getDocs(servicesQuery);
-      setServices(servicesSnapshot.docs.map(doc => doc.data()));
-      
-      // Fetch First 2 Projects
-      const projectsQuery = query(collection(db, 'projects'), limit(2));
-      const projectsSnapshot = await getDocs(projectsQuery);
-      setProjects(projectsSnapshot.docs.map(doc => doc.data()));
+      try {
+        const aboutDoc = await getDoc(doc(db, 'single_pages', 'about'));
+        if (aboutDoc.exists()) setAboutData(aboutDoc.data());
+
+        const servicesQuery = query(collection(db, 'services'), limit(3));
+        const servicesSnapshot = await getDocs(servicesQuery);
+        setServices(servicesSnapshot.docs.map(doc => doc.data()));
+        
+        const projectsQuery = query(collection(db, 'projects'), limit(2));
+        const projectsSnapshot = await getDocs(projectsQuery);
+        setProjects(projectsSnapshot.docs.map(doc => doc.data()));
+      } catch (error) {
+        console.error("Error fetching homepage data:", error);
+      }
     };
     fetchData();
   }, []);
