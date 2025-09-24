@@ -1,24 +1,33 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../firebaseConfig'; // Import the Firebase database instance
+import { collection, getDocs } from 'firebase/firestore';
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    import('../data/projects.json')
-      .then(data => setProjects(data.default))
-      .catch(err => console.error("Could not load projects data:", err));
+    // Fetch all documents from the 'projects' collection
+    const fetchProjects = async () => {
+      try {
+        const projectsCollection = collection(db, 'projects');
+        const projectsSnapshot = await getDocs(projectsCollection);
+        const projectsList = projectsSnapshot.docs.map(doc => doc.data());
+        setProjects(projectsList);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchProjects();
   }, []);
 
   return (
     <div className="py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-6">
-        {/* Page Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-extrabold text-yellow-400">Project Showcase</h1>
           <p className="text-xl text-gray-300 mt-4">Modernizing industries with data-driven geospatial solutions.</p>
         </div>
 
-        {/* Projects List */}
         <div className="space-y-16">
           {projects.map((project, index) => (
             <div 
@@ -36,10 +45,8 @@ const ProjectsPage = () => {
                 <p className="text-yellow-400 font-semibold">{project.client}</p>
                 <h2 className="text-3xl font-bold mt-2 mb-4">{project.title}</h2>
                 <div className="space-y-4 text-gray-300 prose prose-invert max-w-none">
-                  {/* THIS IS THE CORRECTED PART */}
                   <div><strong>Challenge:</strong> <div dangerouslySetInnerHTML={{ __html: project.challenge }} /></div>
                   <div><strong>Solution:</strong> <div dangerouslySetInnerHTML={{ __html: project.solution }} /></div>
-                  
                   <p className="p-4 bg-yellow-400 bg-opacity-10 border-l-4 border-yellow-400 text-yellow-300 rounded-r-lg not-prose">
                     <strong>Key Outcome:</strong> {project.impact}
                   </p>

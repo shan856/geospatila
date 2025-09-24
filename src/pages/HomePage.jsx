@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { FaArrowRight, FaLightbulb, FaRocket, FaHandshake } from 'react-icons/fa';
 import Card from '../components/Card';
 import HeroSlideshow from '../components/HeroSlideshow';
+import { db } from '../firebaseConfig';
+import { collection, getDocs, doc, getDoc, limit, query } from 'firebase/firestore';
 
 const HomePage = () => {
   const [aboutData, setAboutData] = useState({});
@@ -11,9 +13,22 @@ const HomePage = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch('/data/about.json').then(res => res.json()).then(data => setAboutData(data));
-    fetch('/data/services.json').then(res => res.json()).then(data => setServices(data.slice(0, 3)));
-    fetch('/data/projects.json').then(res => res.json()).then(data => setProjects(data.slice(0, 2)));
+    const fetchData = async () => {
+      // Fetch About
+      const aboutDoc = await getDoc(doc(db, 'single_pages', 'about'));
+      if (aboutDoc.exists()) setAboutData(aboutDoc.data());
+      
+      // Fetch First 3 Services
+      const servicesQuery = query(collection(db, 'services'), limit(3));
+      const servicesSnapshot = await getDocs(servicesQuery);
+      setServices(servicesSnapshot.docs.map(doc => doc.data()));
+      
+      // Fetch First 2 Projects
+      const projectsQuery = query(collection(db, 'projects'), limit(2));
+      const projectsSnapshot = await getDocs(projectsQuery);
+      setProjects(projectsSnapshot.docs.map(doc => doc.data()));
+    };
+    fetchData();
   }, []);
 
   return (

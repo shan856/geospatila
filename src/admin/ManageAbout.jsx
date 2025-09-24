@@ -1,45 +1,41 @@
 import React, { useState, useEffect } from 'react';
+import { db } from '../firebaseConfig';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const API_URL = '/api/data/about.json'; // Use relative URL
-
 const ManageAbout = () => {
-  // ... (rest of the component logic)
   const [aboutData, setAboutData] = useState({ history: '', mission: '', vision: '', values: [] });
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
+  const fetchAboutData = async () => {
+    setIsLoading(true);
+    try {
+      const docRef = doc(db, 'single_pages', 'about');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setAboutData(docSnap.data());
+      }
+    } catch (error) {
+      alert("Failed to fetch about data.");
+    }
+    setIsLoading(false);
+  };
+  
   useEffect(() => {
-    fetch(API_URL).then(res => res.json()).then(data => {
-      setAboutData(data);
-      setIsLoading(false);
-    }).catch(() => {
-      setError('Failed to fetch about data.');
-      setIsLoading(false);
-    });
+    fetchAboutData();
   }, []);
 
-  const handleSaveChanges = () => {
+  const handleSave = async () => {
     setIsLoading(true);
-    fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(aboutData),
-    })
-    .then(res => {
-      if (!res.ok) throw new Error('Saving is disabled on the live server. Please run locally to make changes.');
-      return res.json();
-    })
-    .then(() => {
-      setIsLoading(false);
+    try {
+      const docRef = doc(db, 'single_pages', 'about');
+      await setDoc(docRef, aboutData);
       alert('About Us content saved successfully!');
-    })
-    .catch((err) => {
-      alert(err.message);
-      setError('Failed to save content.');
-      setIsLoading(false);
-    });
+    } catch (error) {
+      alert(`Error saving content: ${error.message}`);
+    }
+    setIsLoading(false);
   };
 
   const handleInputChange = (e) => {
@@ -55,23 +51,35 @@ const ManageAbout = () => {
     setAboutData(prev => ({ ...prev, history: value }));
   };
 
-  if (isLoading) return <p>Loading content...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (isLoading) return <p className="text-white">Loading About Us Data...</p>;
 
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-4xl font-bold text-yellow-400">Manage About Us Page</h1>
-        <button onClick={handleSaveChanges} className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600" disabled={isLoading}>{isLoading ? 'Saving...' : 'Save Changes'}</button>
+        <button onClick={handleSave} className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600" disabled={isLoading}>
+          {isLoading ? 'Saving...' : 'Save Changes'}
+        </button>
       </div>
       <div className="bg-gray-800 p-6 rounded-lg space-y-6">
-        <div className="text-gray-900"><label className="block text-lg font-bold text-gray-300 mb-2">Company History</label><ReactQuill theme="snow" value={aboutData.history} onChange={handleQuillChange} /></div>
-        <div><label className="block text-lg font-bold text-gray-300 mb-2">Mission</label><textarea name="mission" value={aboutData.mission} onChange={handleInputChange} rows="4" className="w-full p-2 bg-gray-700 text-white rounded"></textarea></div>
-        <div><label className="block text-lg font-bold text-gray-300 mb-2">Vision</label><textarea name="vision" value={aboutData.vision} onChange={handleInputChange} rows="4" className="w-full p-2 bg-gray-700 text-white rounded"></textarea></div>
-        <div><label className="block text-lg font-bold text-gray-300 mb-2">Values (comma-separated)</label><input type="text" name="values" value={aboutData.values?.join(', ')} onChange={handleInputChange} className="w-full p-2 bg-gray-700 text-white rounded" /></div>
+        <div className="text-gray-900">
+          <label className="block text-lg font-bold text-gray-300 mb-2">Company History</label>
+          <ReactQuill theme="snow" value={aboutData.history} onChange={handleQuillChange} />
+        </div>
+        <div>
+          <label className="block text-lg font-bold text-gray-300 mb-2">Mission</label>
+          <textarea name="mission" value={aboutData.mission} onChange={handleInputChange} rows="4" className="w-full p-2 bg-gray-700 text-white rounded"></textarea>
+        </div>
+        <div>
+          <label className="block text-lg font-bold text-gray-300 mb-2">Vision</label>
+          <textarea name="vision" value={aboutData.vision} onChange={handleInputChange} rows="4" className="w-full p-2 bg-gray-700 text-white rounded"></textarea>
+        </div>
+        <div>
+          <label className="block text-lg font-bold text-gray-300 mb-2">Values (comma-separated)</label>
+          <input type="text" name="values" value={aboutData.values?.join(', ')} onChange={handleInputChange} className="w-full p-2 bg-gray-700 text-white rounded" />
+        </div>
       </div>
     </div>
   );
 };
-
 export default ManageAbout;

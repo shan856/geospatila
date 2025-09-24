@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Card from '../components/Card';
+import { db } from '../firebaseConfig'; // Import the Firebase database instance
+import { doc, getDoc } from 'firebase/firestore';
 
 const ContactPage = () => {
   const [contactInfo, setContactInfo] = useState({});
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   useEffect(() => {
-    import('../data/contact.json')
-      .then(data => setContactInfo(data.default))
-      .catch(err => console.error("Could not load contact data:", err));
+    // Fetch the single 'contact' document from the 'single_pages' collection
+    const fetchContact = async () => {
+      try {
+        const docRef = doc(db, 'single_pages', 'contact');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setContactInfo(docSnap.data());
+        } else {
+          console.log("No contact document found!");
+        }
+      } catch (error) {
+        console.error("Error fetching contact info:", error);
+      }
+    };
+    fetchContact();
   }, []);
   
   const handleInputChange = (e) => {
@@ -19,58 +33,36 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you for your message! This is a demo form.");
-    // In a real application, you would handle form submission here (e.g., send to an API)
+    // In a real application, you would handle form submission here (e.g., send to an API or Firestore)
+    alert("Thank you for your message! This is a demo form and does not send data.");
     setFormData({ name: '', email: '', message: '' });
   };
 
   return (
     <div className="py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-6">
-        {/* Page Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-extrabold text-yellow-400">Contact Us</h1>
           <p className="text-xl text-gray-300 mt-4">We'd love to hear from you. Let's get in touch.</p>
         </div>
         
-        {/* Contact Info Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-20">
-          <Card title="Phone" icon={<FaPhone />}>
-            <a href={`tel:${contactInfo.phone}`} className="hover:text-yellow-400">{contactInfo.phone}</a>
-          </Card>
-          <Card title="Email" icon={<FaEnvelope />}>
-            <a href={`mailto:${contactInfo.email}`} className="hover:text-yellow-400">{contactInfo.email}</a>
-          </Card>
-          <Card title="Address" icon={<FaMapMarkerAlt />}>
-            {contactInfo.address}
-          </Card>
+          <Card title="Phone" icon={<FaPhone />}><a href={`tel:${contactInfo.phone}`} className="hover:text-yellow-400">{contactInfo.phone}</a></Card>
+          <Card title="Email" icon={<FaEnvelope />}><a href={`mailto:${contactInfo.email}`} className="hover:text-yellow-400">{contactInfo.email}</a></Card>
+          <Card title="Address" icon={<FaMapMarkerAlt />}>{contactInfo.address}</Card>
         </div>
 
-        {/* Form and Map Section */}
         <div className="grid md:grid-cols-2 gap-12 bg-gray-800 p-8 rounded-lg">
-          {/* Contact Form */}
           <div>
             <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
             <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label htmlFor="name" className="block mb-2 text-sm font-bold text-gray-400">Full Name</label>
-                <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} className="w-full px-3 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:border-yellow-400" required />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="email" className="block mb-2 text-sm font-bold text-gray-400">Email Address</label>
-                <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full px-3 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:border-yellow-400" required />
-              </div>
-              <div className="mb-6">
-                <label htmlFor="message" className="block mb-2 text-sm font-bold text-gray-400">Message</label>
-                <textarea id="message" name="message" rows="5" value={formData.message} onChange={handleInputChange} className="w-full px-3 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:border-yellow-400" required></textarea>
-              </div>
-              <button type="submit" className="bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-full hover:bg-yellow-300 transition-all duration-300 w-full">
-                Send Message
-              </button>
+              <div className="mb-4"><label htmlFor="name" className="block mb-2 text-sm font-bold text-gray-400">Full Name</label><input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} className="w-full px-3 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:border-yellow-400" required /></div>
+              <div className="mb-4"><label htmlFor="email" className="block mb-2 text-sm font-bold text-gray-400">Email Address</label><input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full px-3 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:border-yellow-400" required /></div>
+              <div className="mb-6"><label htmlFor="message" className="block mb-2 text-sm font-bold text-gray-400">Message</label><textarea id="message" name="message" rows="5" value={formData.message} onChange={handleInputChange} className="w-full px-3 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:border-yellow-400" required></textarea></div>
+              <button type="submit" className="btn-primary w-full">Send Message</button>
             </form>
           </div>
           
-          {/* Google Map Embed */}
           <div>
             <h2 className="text-3xl font-bold mb-6">Our Location</h2>
             <iframe 
@@ -89,5 +81,4 @@ const ContactPage = () => {
     </div>
   );
 };
-
 export default ContactPage;
