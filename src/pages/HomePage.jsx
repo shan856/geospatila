@@ -67,11 +67,12 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Call to Action Section with Correct Button Style */}
       <section className="py-20 text-center px-4">
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Unlock Your Geospatial Potential?</h2>
           <p className="text-lg sm:text-xl text-gray-300 mb-8">Let's discuss how our expertise can drive your success.</p>
-          <Link to="/contact" className="btn-primary">Get In Touch</Link>
+          <Link to="/contact" className="btn-primary text-xl">Get In Touch</Link>
         </div>
       </section>
     </div>

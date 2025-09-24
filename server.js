@@ -1,66 +1,63 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
+const fs = require('fs/promises'); // Use promise-based fs
 const path = require('path');
-const multer = require('multer'); // Handles file uploads
+const multer = require('multer');
+const os = require('os');
 
 const app = express();
-const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-const dataDirectory = path.join(__dirname, 'src', 'data');
-const uploadDirectory = path.join(__dirname, 'public', 'uploads');
+// Vercel writes files to a temporary directory
+const uploadDirectory = os.tmpdir();
+const dataDirectory = path.resolve(process.cwd(), 'src', 'data');
 
-// CRITICAL FIX: Ensure the upload directory exists.
-if (!fs.existsSync(uploadDirectory)) {
-  fs.mkdirSync(uploadDirectory, { recursive: true });
-}
-
-// Multer configuration for storing uploaded files
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDirectory);
-  },
-  filename: function (req, file, cb) {
+  destination: (req, file, cb) => cb(null, uploadDirectory),
+  filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
   }
 });
 const upload = multer({ storage: storage });
 
-// --- API Endpoints ---
-
-// THIS IS THE ROUTE THAT WAS MISSING
 app.post('/api/upload', upload.single('projectImage'), (req, res) => {
   if (!req.file) {
     return res.status(400).send({ error: 'No file uploaded.' });
   }
-  res.send({ filePath: `/uploads/${req.file.filename}` });
+  // NOTE: In a real serverless setup, you'd upload this to a storage service (like S3).
+  // This temporary solution will work for the demo, but the image will not persist between deployments.
+  // For the purpose of getting the file path into JSON, this is sufficient.
+  res.send({ filePath: `/uploads/${path.basename(req.file.path)}` }); // This is a temporary path
 });
 
-// GET a specific JSON file
-app.get('/api/data/:filename', (req, res) => {
-  const { filename } = req.params;
-  const filePath = path.join(dataDirectory, filename);
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) return res.status(404).send({ error: 'File not found.' });
+app.get('/api/data/:filename', async (req, res) => {
+  const filePath = path.join(dataDirectory, req.params.filename);
+  try {
+    const data = await fs.readFile(filePath, 'utf8');
     res.send(JSON.parse(data));
-  });
+  } catch (error) {
+    res.status(404).send({ error: 'File not found.' });
+  }
 });
 
-// POST (update) a specific JSON file
-app.post('/api/data/:filename', (req, res) => {
-  const { filename } = req.params;
-  const filePath = path.join(dataDirectory, filename);
-  fs.writeFile(filePath, JSON.stringify(req.body, null, 2), 'utf8', (err) => {
-    if (err) return res.status(500).send({ error: 'Failed to write file.' });
-    res.send({ success: true, message: `${filename} updated successfully.` });
-  });
+app.post('/api/data/:filename', async (req, res) => {
+  // IMPORTANT: Vercel has a read-only filesystem. This endpoint will NOT work on the deployed site.
+  // It is here ONLY to allow the local development server (`npm start`) to function.
+  // The official workflow is to edit locally and push changes via Git.
+  if (process.env.VERCEL) {
+    return res.status(403).send({ error: 'Filesystem is read-only on Vercel.' });
+  }
+  const filePath = path.join(dataDirectory, req.params.filename);
+  try {
+    await fs.writeFile(filePath, JSON.stringify(req.body, null, 2), 'utf8');
+    res.send({ success: true, message: `${req.params.filename} updated.` });
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to write file.' });
+  }
 });
 
-app.listen(PORT, () => {
-  console.log(`JSON API server is running on http://localhost:${PORT}`);
-});
+// Export the app for Vercel to use
+module.exports = app;
