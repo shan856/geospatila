@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const API_URL = 'http://localhost:3001/api/data/projects.json';
-const UPLOAD_URL = 'http://localhost:3001/api/upload';
+const API_URL = '/api/data/projects.json'; // Use relative URL
+const UPLOAD_URL = '/api/upload'; // Use relative URL
 
 const ManageProjects = () => {
+  // ... (rest of the component logic)
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,19 +30,22 @@ const ManageProjects = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedData),
     })
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Saving is disabled on the live server. Please run locally to make changes.');
+      return res.json();
+    })
     .then(() => {
-      // THIS IS THE CRITICAL CHANGE: Only update the local state AFTER the server confirms the save.
-      setProjects(updatedData);
-      setIsLoading(false);
-      alert('Changes saved successfully!');
+        setProjects(updatedData);
+        setIsLoading(false);
+        alert('Changes saved successfully!');
     })
     .catch(err => {
-      setError('Failed to save changes. Check the server console.');
-      setIsLoading(false);
+        alert(err.message);
+        setError('Failed to save changes.');
+        setIsLoading(false);
     });
   };
-
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditingProject(prev => ({ ...prev, [name]: value }));
@@ -104,7 +108,6 @@ const ManageProjects = () => {
         updatedProjects = [...projects, projectToSave];
     }
     
-    // Now that the image is uploaded (if any), save the updated JSON data
     saveData(updatedProjects);
     setEditingProject(null);
     setSelectedFile(null);
@@ -116,9 +119,7 @@ const ManageProjects = () => {
   return (
     <div>
       <h1 className="text-4xl font-bold text-yellow-400 mb-8">Manage Projects</h1>
-      <div className="text-right mb-4">
-          <button onClick={handleAddNew} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Add New Project</button>
-      </div>
+      <div className="text-right mb-4"><button onClick={handleAddNew} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Add New Project</button></div>
 
       {editingProject && (
         <div className="bg-gray-800 p-6 rounded-lg mb-8">

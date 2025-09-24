@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
-const API_URL = 'http://localhost:3001/api/data/services.json';
+const API_URL = '/api/data/services.json'; // Use relative URL
 
 const ManageServices = () => {
+  // ... (rest of the component logic)
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editingService, setEditingService] = useState(null);
 
   useEffect(() => {
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(data => {
-        setServices(data);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        setError('Failed to fetch services.');
-        setIsLoading(false);
-      });
+    fetch(API_URL).then(res => res.json()).then(data => {
+      setServices(data);
+      setIsLoading(false);
+    }).catch(() => {
+      setError('Failed to fetch services.');
+      setIsLoading(false);
+    });
   }, []);
 
-  // Central function to save the entire list to the server
   const saveData = (updatedData) => {
     setIsLoading(true);
     fetch(API_URL, {
@@ -29,35 +26,35 @@ const ManageServices = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedData),
     })
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Saving is disabled on the live server. Please run locally to make changes.');
+      return res.json();
+    })
     .then(() => {
-        setServices(updatedData); // Update local state on success
+        setServices(updatedData);
         setIsLoading(false);
         alert('Changes saved successfully!');
     })
-    .catch(err => {
+    .catch((err) => {
+        alert(err.message); // Show the specific error
         setError('Failed to save changes.');
         setIsLoading(false);
     });
   };
-
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditingService(prev => ({ ...prev, [name]: value }));
   };
 
   const handleAddNew = () => {
-    setEditingService({ id: `new-service-${Date.now()}`, title: '', description: '' });
-  };
-
-  const handleEdit = (service) => {
-    setEditingService({ ...service });
+    setEditingService({ id: `service-${Date.now()}`, title: '', description: '' });
   };
 
   const handleDelete = (serviceId) => {
-    if (window.confirm('Are you sure you want to delete this service? This action is permanent.')) {
+    if (window.confirm('Are you sure you want to delete this service?')) {
       const updatedServices = services.filter(s => s.id !== serviceId);
-      saveData(updatedServices); // Save immediately
+      saveData(updatedServices);
     }
   };
 
@@ -68,25 +65,21 @@ const ManageServices = () => {
     } else {
       updatedServices = [...services, editingService];
     }
-    saveData(updatedServices); // Save immediately
-    setEditingService(null); // Close the form
+    saveData(updatedServices);
+    setEditingService(null);
   };
 
-  if (isLoading && !services.length) return <p>Loading services...</p>;
+  if (isLoading && !services.length) return <p>Loading...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-yellow-400">Manage Services</h1>
-        <button onClick={handleAddNew} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">
-          Add New Service
-        </button>
-      </div>
+      <h1 className="text-4xl font-bold text-yellow-400 mb-8">Manage Services</h1>
+      <div className="text-right mb-4"><button onClick={handleAddNew} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">Add New Service</button></div>
 
       {editingService && (
         <div className="bg-gray-800 p-6 rounded-lg mb-8">
-          <h2 className="text-2xl font-bold mb-4">{editingService.id.startsWith('new') ? 'Add New Service' : 'Edit Service'}</h2>
+          <h2 className="text-2xl font-bold mb-4">{services.find(s => s.id === editingService.id) ? 'Edit Service' : 'Add New Service'}</h2>
           <div className="space-y-4">
             <input type="text" name="title" value={editingService.title} onChange={handleInputChange} placeholder="Service Title" className="w-full p-2 bg-gray-700 rounded"/>
             <textarea name="description" value={editingService.description} onChange={handleInputChange} placeholder="Service Description" rows="4" className="w-full p-2 bg-gray-700 rounded"></textarea>
@@ -105,12 +98,8 @@ const ManageServices = () => {
         <tbody>
           {services.map(service => (
             <tr key={service.id} className="border-b border-gray-700">
-              <td className="p-4 align-top">{service.title}</td>
-              <td className="p-4 align-top">{service.description}</td>
-              <td className="p-4 align-top">
-                <button onClick={() => handleEdit(service)} className="text-blue-400 hover:underline mr-4">Edit</button>
-                <button onClick={() => handleDelete(service.id)} className="text-red-400 hover:underline">Delete</button>
-              </td>
+              <td className="p-4 align-top">{service.title}</td><td className="p-4 align-top">{service.description}</td>
+              <td className="p-4 align-top"><button onClick={() => setEditingService({...service})} className="text-blue-400 hover:underline mr-4">Edit</button><button onClick={() => handleDelete(service.id)} className="text-red-400 hover:underline">Delete</button></td>
             </tr>
           ))}
         </tbody>
