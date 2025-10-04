@@ -1,10 +1,12 @@
 {
-  "history": "<p>Established in 2010 and headquartered in San Francisco, CA, GeoSpatial Innovations is a premier GIS consultancy. We are a team of scientists, developers, and strategists passionate about solving complex challenges by revealing the power of location intelligence.jnnjjk</p>",
+  "history": "<p>Founded in 2010 by a team of passionate cartographers and data scientists, GeoSpatial Innovations was born from a shared vision: to unlock the hidden potential within geographic data. What began as a small consultancy in San Francisco has grown into a premier GIS powerhouse, serving a diverse clientele across both public and private sectors. We pride ourselves on a decade-plus journey of turning complex spatial problems into clear, actionable strategies.</p><p>Our philosophy is simple: 'where' is the most critical question you can ask. By integrating this spatial context, we provide our clients with a profound competitive advantage and a clearer path to success.</p>",
   "mission": "To empower organisations by developing and deploying cutting-edge spatial intelligence solutions that drive efficiency, sustainability, and informed decision-making.",
   "vision": "To be the leading force in applied geospatial technology, creating a smarter, more connected, and sustainable world through data-driven insights.",
   "values": [
     "Innovation",
     "Integrity",
-    "Partnership"
-  ]
+    "Partnership",
+    "Excellence"
+  ],
+  "team_summary": "Our team is our greatest asset. We are a multidisciplinary group of certified GIS professionals, remote sensing analysts, software developers, and strategic thinkers. United by a passion for problem-solving, we thrive on collaboration and are committed to delivering excellence in every project we undertake."
 }

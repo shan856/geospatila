@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import { FaBroadcastTower, FaBuilding, FaLeaf, FaTractor, FaRoute, FaGlobe } from 'react-icons/fa';
-import { db } from '../firebaseConfig';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 const ServicesPage = () => {
   const [services, setServices] = useState([]);
   const [solutions, setSolutions] = useState([]);
 
   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const servicesQuery = query(collection(db, 'services'), orderBy('title'));
-        const servicesSnapshot = await getDocs(servicesQuery);
-        setServices(servicesSnapshot.docs.map(doc => doc.data()));
-      } catch (error) { console.error("Error fetching services:", error); }
-    };
-    
-    // Solutions are static and can be loaded from a local file
+    // Both files are now loaded statically from the public folder
+    fetch('/data/services.json')
+      .then(res => res.json())
+      .then(data => setServices(data))
+      .catch(err => console.error("Could not load services data:", err));
+      
     fetch('/data/solutions.json')
       .then(res => res.json())
       .then(data => setSolutions(data))
       .catch(err => console.error("Could not load solutions data:", err));
-
-    fetchServices();
   }, []);
 
   const getIcon = (id) => {
@@ -38,32 +31,16 @@ const ServicesPage = () => {
   }
 
   return (
-    <div className="py-20 bg-gray-900 text-white">
+    <div className="py-16 md:py-20 bg-gray-900 text-white">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-extrabold text-yellow-400">Our Services</h1>
-          <p className="text-xl text-gray-300 mt-4">A complete spectrum of geospatial solutions.</p>
+        <div className="text-center mb-12 md:mb-16"><h1 className="text-4xl md:text-5xl font-extrabold text-yellow-400">Our Services</h1><p className="text-lg md:text-xl text-gray-300 mt-4">A complete spectrum of geospatial solutions.</p></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map(service => (<Card key={service.id} title={service.title} imageUrl={service.imageUrl}>{service.description}</Card>))}
         </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map(service => (
-            <Card key={service.id} title={service.title} imageUrl={service.imageUrl}>
-              {service.description}
-            </Card>
-          ))}
-        </div>
-        
-        <div className="mt-24">
-            <div className="text-center mb-16">
-                <h2 className="text-4xl font-extrabold text-yellow-400">Solutions by Sector</h2>
-                <p className="text-xl text-gray-300 mt-4">Applying spatial intelligence across industries.</p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {solutions.map(solution => (
-                    <Card key={solution.id} title={solution.title} icon={getIcon(solution.id)}>
-                        {solution.description}
-                    </Card>
-                ))}
+        <div className="mt-20 md:mt-24">
+            <div className="text-center mb-12 md:mb-16"><h2 className="text-3xl md:text-4xl font-extrabold text-yellow-400">Solutions by Sector</h2><p className="text-lg md:text-xl text-gray-300 mt-4">Applying spatial intelligence across industries.</p></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {solutions.map(solution => (<Card key={solution.id} title={solution.title} icon={getIcon(solution.id)}>{solution.description}</Card>))}
             </div>
         </div>
       </div>
