@@ -4,12 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const AnimatedHamburgerIcon = ({ isOpen, onClick }) => {
   return (
-    <motion.button 
-      onClick={onClick} 
-      className="w-7 h-7 relative focus:outline-none"
-      animate={isOpen ? "open" : "closed"}
-      aria-label="Toggle menu"
-    >
+    <motion.button onClick={onClick} className="w-7 h-7 relative focus:outline-none" animate={isOpen ? "open" : "closed"} aria-label="Toggle menu">
       <motion.span variants={{ closed: { y: 0, rotate: 0 }, open: { y: 8, rotate: 45 } }} className="block absolute h-0.5 w-full bg-white" style={{ top: '25%' }}/>
       <motion.span variants={{ closed: { opacity: 1 }, open: { opacity: 0 } }} transition={{ duration: 0.1 }} className="block absolute h-0.5 w-full bg-white" style={{ top: '50%' }}/>
       <motion.span variants={{ closed: { y: 0, rotate: 0 }, open: { y: -8, rotate: -45 } }} className="block absolute h-0.5 w-full bg-white" style={{ top: '75%' }}/>
@@ -20,16 +15,26 @@ const AnimatedHamburgerIcon = ({ isOpen, onClick }) => {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const activeLinkStyle = { color: '#FBBF24' };
-  const menuVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 120 } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.2 } }
-  };
+  const menuVariants = { hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 120 } }, exit: { opacity: 0, y: -20, transition: { duration: 0.2 } } };
 
   return (
     <header className="bg-gray-900 bg-opacity-80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-yellow-500/10">
-      <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-xl sm:text-2xl font-bold text-yellow-400"><NavLink to="/" onClick={() => setIsMenuOpen(false)}>GeoSpatial Innovations</NavLink></div>
+      {/* --- PARENT CONTAINER IS NOW 'RELATIVE' --- */}
+      <nav className="container mx-auto px-6 py-4 flex justify-between items-center relative">
+        
+        {/* --- LOGO POSITIONING APPLIED --- */}
+        <NavLink 
+          to="/" 
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute left-6 top-1/2 transform -translate-y-1/2 transition-transform duration-300 hover:scale-105"
+        >
+          {/* --- LOGO SIZE INCREASED --- */}
+          <img src="https://raw.githubusercontent.com/shan856/geospatila/main/uploads/logo.png" alt="RRtechGeo Logo" className="h-20 w-auto" />
+        </NavLink>
+        
+        {/* This empty div ensures the nav links stay on the right */}
+        <div />
+
         <ul className="hidden md:flex space-x-8 text-lg items-center">
           <li><NavLink to="/" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-yellow-400 transition-colors duration-300">Home</NavLink></li>
           <li><NavLink to="/about" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="hover:text-yellow-400 transition-colors duration-300">About Us</NavLink></li>
