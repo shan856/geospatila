@@ -2,46 +2,64 @@
   {
     "id": "gis-dev",
     "title": "Custom GIS Development",
-    "description": "We don't just use GIS software; we build it. Our development team creates bespoke applications tailored precisely to your workflow, including web, mobile, and desktop solutions."
+    "description": "We don't just use GIS software; we build it. Our development team creates bespoke applications tailored precisely to your workflow.",
+    "icon": "FaCode",
+    "imageUrl": ""
   },
   {
     "id": "data-science",
     "title": "Spatial Data Science & Analytics",
-    "description": "Data is just noise until you find the signal. We specialize in turning raw spatial data into clear, actionable intelligence through predictive modeling, site suitability, and network analysis."
+    "description": "Data is just noise until you find the signal. We specialize in turning raw spatial data into clear, actionable intelligence.",
+    "icon": "FaChartBar",
+    "imageUrl": "/uploads/service-analytics.jpg"
   },
   {
     "id": "remote-sensing",
     "title": "Advanced Remote Sensing",
-    "description": "Processing satellite, aerial, and drone imagery to uncover insights. We also handle LiDAR processing to transform 3D point clouds into detailed terrain models."
+    "description": "Processing satellite, aerial, and drone imagery to uncover insights and monitor environmental changes with precision.",
+    "icon": "FaSatelliteDish",
+    "imageUrl": ""
   },
   {
     "id": "uav-drone",
     "title": "UAV/Drone Mapping & Survey",
-    "description": "Deploying UAVs to capture high-resolution multispectral imagery for precise, variable-rate application of resources in sectors like agriculture and environmental monitoring."
+    "description": "Deploying UAVs to capture high-resolution multispectral imagery for precise, variable-rate application of resources.",
+    "icon": "FaHelicopter",
+    "imageUrl": "/uploads/service-drone.jpg"
   },
   {
     "id": "geodatabase",
     "title": "Geodatabase Architecture",
-    "description": "Designing and implementing robust and scalable geodatabase solutions to manage your spatial data effectively and securely."
+    "description": "Designing and implementing robust and scalable geodatabase solutions to manage your spatial data effectively and securely.",
+    "icon": "FaDatabase",
+    "imageUrl": ""
+  },
+  {
+    "id": "3d-modeling",
+    "title": "3D City Modeling & Digital Twins",
+    "description": "Creating realistic, data-rich 3D models of urban environments to support planning, simulation, and smart city initiatives.",
+    "icon": "FaCube",
+    "imageUrl": "/uploads/service-3d-model.jpg"
   },
   {
     "id": "gis-strategy",
     "title": "GIS Strategy & Consultation",
-    "description": "Providing expert guidance to help you develop a comprehensive GIS strategy that aligns with your organization's goals and maximizes your return on investment."
+    "description": "Providing expert guidance to help you develop a comprehensive GIS strategy that aligns with your organization's goals.",
+    "icon": "FaLightbulb",
+    "imageUrl": ""
+  },
+  {
+    "id": "system-integration",
+    "title": "Enterprise GIS & System Integration",
+    "description": "Integrating GIS capabilities into your existing enterprise systems (CRM, ERP) to create a seamless, location-aware workflow.",
+    "icon": "FaNetworkWired",
+    "imageUrl": ""
   },
   {
     "id": "web-dev",
     "title": "Geo-enabled Web Development",
-    "description": "Building powerful, geo-enabled web applications and portals that bring your spatial data to life for customers and stakeholders."
-  },
-  {
-    "id": "new-service-1758448301715",
-    "title": "dinkachika",
-    "description": "asdasd"
-  },
-  {
-    "id": "new-service-1758725476360",
-    "title": "hello ji",
-    "description": "sjndjs"
+    "description": "Building powerful, geo-enabled web applications and portals that bring your spatial data to life for customers and stakeholders.",
+    "icon": "FaLaptopCode",
+    "imageUrl": "/uploads/service-webdev.jpg"
   }
 ]

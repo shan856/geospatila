@@ -21,7 +21,7 @@ const AboutPage = () => {
           <p className="text-lg md:text-xl text-gray-300 mt-4">Revealing the power of location intelligence.</p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-16 md:mb-20">
-          <div><img src="/uploads/team-photo.jpg" alt="Team" className="rounded-lg shadow-2xl"/></div>
+          <div><img src="/uploads/team-photo.png" alt="Team" className="rounded-lg shadow-2xl"/></div>
           <div className="bg-gray-800 p-6 md:p-8 rounded-lg">
             <h2 className="text-3xl font-bold mb-4">Our Story</h2>
             <div className="text-gray-300 leading-relaxed prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: aboutData.history }} />

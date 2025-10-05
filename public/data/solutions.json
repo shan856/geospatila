@@ -23,5 +23,10 @@
     "id": "transportation",
     "title": "Transportation & Logistics",
     "description": "Improving route optimization, fleet management, and infrastructure planning with advanced spatial modeling and real-time data."
+  },
+  {
+    "id": "real-estate",
+    "title": "Real Estate & Urban Development",
+    "description": "Providing critical insights for site selection, market analysis, and property management through advanced geospatial intelligence."
   }
 ]

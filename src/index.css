@@ -50,3 +50,32 @@
 .swiper-pagination-custom .swiper-pagination-bullet-active {
   background-color: #FBBF24; /* yellow-400 */
 }
+
+
+/* --- DEFINITIVE BUTTON STYLES --- */
+
+/* Primary Button (Solid Yellow) */
+.btn-primary {
+  @apply bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out;
+  @apply transform hover:scale-105 hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-500/30;
+}
+
+/* Secondary/Ghost Button (Bordered) */
+.btn-secondary {
+  @apply bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out;
+  @apply transform hover:bg-white hover:text-gray-900 hover:scale-105;
+}
+
+/* Secondary/Ghost Button (Yellow Border Variant) */
+.btn-secondary-yellow {
+  @apply bg-transparent border-2 border-yellow-400 text-yellow-400 font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out;
+  @apply transform hover:bg-yellow-400 hover:text-gray-900 hover:scale-105;
+}
+
+/* --- SWIPER PAGINATION STYLES --- */
+.swiper-pagination-custom .swiper-pagination-bullet {
+  @apply bg-gray-500/50;
+}
+.swiper-pagination-custom .swiper-pagination-bullet-active {
+  @apply bg-yellow-400;
+}

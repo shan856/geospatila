@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
-import WhatsAppButton from '../components/WhatsAppButton';
 
 const PublicLayout = () => {
   return (
@@ -17,7 +16,6 @@ const PublicLayout = () => {
       </main>
       <Footer />
       <ScrollToTopButton />
-      <WhatsAppButton />
     </div>
   );
 };
