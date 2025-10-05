@@ -15,7 +15,7 @@
     "challenge": "<p>The client needed to optimise the use of fertilisers and water across 50,000 hectares of variable terrain.</p>",
     "solution": "<p>We deployed UAVs to capture high-resolution multispectral imagery. This data was processed to create detailed maps of crop health, allowing for precise, variable-rate application of resources.</p>",
     "impact": "Boosted crop yields by 20% and reduced fertiliser usage by 25%.",
-    "imageUrl": "/uploads/project_uav.png"
+    "imageUrl": "../uploads/project_uav.png"
   },
   {
     "id": "project-1758725488947",
