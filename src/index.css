@@ -2,80 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* Target the main editor area */
-.ql-editor {
-  color: white;
+body {
+  @apply bg-primary-bg text-text-secondary antialiased;
 }
 
-/* Target the toolbar icons */
-.ql-snow .ql-stroke {
-    stroke: white;
-}
+/* ReactQuill Light Theme Styles */
+.ql-editor { color: #374151; min-height: 150px; }
+.ql-toolbar { background-color: #F9FAFB; border-radius: 0.5rem 0.5rem 0 0; border-color: #E5E7EB !important; }
+.ql-container { border-radius: 0 0 0.5rem 0.5rem; border-color: #E5E7EB !important; }
+.ql-snow .ql-stroke { stroke: #4B5563; }
+.ql-snow .ql-picker-label { color: #4B5563; }
+.ql-snow .ql-picker-options { background-color: #FFFFFF; border-color: #E5E7EB; }
 
-/* Target the dropdown picker labels */
-.ql-snow .ql-picker-label {
-    color: white;
-}
+/* Swiper Pagination Styles */
+.swiper-pagination-custom .swiper-pagination-bullet { @apply bg-gray-300; }
+.swiper-pagination-custom .swiper-pagination-bullet-active { @apply bg-accent; }
 
-/* Add this to the end of your src/index.css */
-
-.swiper-wrapper {
-  transition-timing-function: ease-in-out;
-}
-
-@keyframes kenburns-zoom-out {
-  from {
-    transform: scale(1.15);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-/* By default, all backgrounds are zoomed in */
-.swiper-slide .ken-burns-background {
-  transform: scale(1.15);
-}
-
-/* ONLY the ACTIVE slide will run the animation */
-.swiper-slide-active .ken-burns-background {
-  animation: kenburns-zoom-out 7.5s linear forwards;
-}
-
-.swiper-pagination-custom .swiper-pagination-bullet {
-  background-color: #6b7280; /* gray-500 */
-}
-
-.swiper-pagination-custom .swiper-pagination-bullet-active {
-  background-color: #FBBF24; /* yellow-400 */
-}
-
-
-/* --- DEFINITIVE BUTTON STYLES --- */
-
-/* Primary Button (Solid Yellow) */
+/* Button Styles */
 .btn-primary {
-  @apply bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out;
-  @apply transform hover:scale-105 hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-500/30;
+  @apply bg-accent text-white font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out;
+  @apply transform hover:scale-105 hover:bg-accent-dark hover:shadow-lg hover:shadow-purple-500/30;
 }
-
-/* Secondary/Ghost Button (Bordered) */
 .btn-secondary {
   @apply bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out;
   @apply transform hover:bg-white hover:text-gray-900 hover:scale-105;
 }
 
-/* Secondary/Ghost Button (Yellow Border Variant) */
-.btn-secondary-yellow {
-  @apply bg-transparent border-2 border-yellow-400 text-yellow-400 font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out;
-  @apply transform hover:bg-yellow-400 hover:text-gray-900 hover:scale-105;
-}
-
-/* --- SWIPER PAGINATION STYLES --- */
-.swiper-pagination-custom .swiper-pagination-bullet {
-  @apply bg-gray-500/50;
-}
-.swiper-pagination-custom .swiper-pagination-bullet-active {
-  @apply bg-yellow-400;
-}
+/* Ken Burns effect */
+.swiper-wrapper { transition-timing-function: ease-in-out; }
+@keyframes kenburns-zoom-out { from { transform: scale(1.15); } to { transform: scale(1); } }
+.swiper-slide .ken-burns-background { transform: scale(1.15); }
+.swiper-slide-active .ken-burns-background { animation: kenburns-zoom-out 7.5s linear forwards; }

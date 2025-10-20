@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useAuthState } from 'react-firebase-hooks/auth'; // 1. IMPORT THE HOOK
+import { auth } from './firebaseConfig';                 // 2. IMPORT FIREBASE AUTH
+
 import PublicLayout from './layouts/PublicLayout';
 import AdminLayout from './layouts/AdminLayout';
 import HomePage from './pages/HomePage';
@@ -16,10 +19,26 @@ import ManageGallery from './admin/ManageGallery';
 import ManageContact from './admin/ManageContact';
 import ScrollToTop from './components/ScrollToTop';
 
-const isAuthenticated = () => sessionStorage.getItem('isAdminAuthenticated') === 'true';
-const PrivateRoute = ({ children }) => isAuthenticated() ? children : <Navigate to="/admin" />;
+// 3. THE OLD INSECURE FUNCTION IS NO LONGER NEEDED AND HAS BEEN REMOVED
 
-// This is the animation wrapper that was missing
+// 4. THIS IS THE NEW, SECURE PRIVATE ROUTE
+const PrivateRoute = ({ children }) => {
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    // This shows a loading message while Firebase checks if you are logged in
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Loading Authentication...</p>
+      </div>
+    );
+  }
+
+  // If a user is logged in via Firebase, show the admin content.
+  // If not, redirect them to the admin login page.
+  return user ? children : <Navigate to="/admin" />;
+};
+
 const AnimatedPage = ({ children }) => (
   <motion.div
     initial={{ opacity: 0, y: 15 }}

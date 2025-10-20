@@ -1,0 +1,6 @@
+[
+  { "id": 1, "icon": "FaRegSmileBeam", "end": 890, "label": "Happy Customer" },
+  { "id": 2, "icon": "FaRegFileAlt", "end": 2500, "label": "Cases Complete" },
+  { "id": 3, "icon": "FaRegStar", "end": 15, "label": "Years Of Experience" },
+  { "id": 4, "icon": "FaUserTie", "end": 30, "label": "Professional Advisor" }
+]

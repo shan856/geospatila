@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show button when page is scrolled down
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
       setIsVisible(true);
@@ -14,7 +13,6 @@ const ScrollToTopButton = () => {
     }
   };
 
-  // Set up a listener for scrolling
   useEffect(() => {
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
@@ -23,7 +21,7 @@ const ScrollToTopButton = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // This makes the scroll smooth!
+      behavior: 'smooth',
     });
   };
 
@@ -36,7 +34,8 @@ const ScrollToTopButton = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-8 right-8 bg-yellow-400 text-gray-900 p-4 rounded-full shadow-lg hover:bg-yellow-300 focus:outline-none z-50"
+          // --- UPDATED: Changed from yellow to purple accent color ---
+          className="fixed bottom-8 right-8 bg-accent text-white p-4 rounded-full shadow-lg hover:bg-accent-dark focus:outline-none z-50"
           aria-label="Scroll to top"
         >
           <FaArrowUp />

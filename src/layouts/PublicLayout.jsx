@@ -6,10 +6,9 @@ import ScrollToTopButton from '../components/ScrollToTopButton';
 
 const PublicLayout = () => {
   return (
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        {/* Added overflow-hidden to prevent horizontal scroll on page transitions */}
         <div className="overflow-hidden">
           <Outlet />
         </div>
@@ -19,4 +18,5 @@ const PublicLayout = () => {
     </div>
   );
 };
+
 export default PublicLayout;

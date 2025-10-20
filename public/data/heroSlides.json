@@ -1,26 +1,26 @@
 [
   {
     "id": 1,
-    "title": "Innovating with GIS & Spatial Intelligence",
-    "subtitle": "Established in 2010, we turn complex geospatial data into actionable, intelligent insights.",
-    "imageUrl": "/uploads/hero-background.jpg"
+    "title": "Transforming Data into Decisions",
+    "subtitle": "Harnessing the power of advanced GIS and spatial intelligence to provide clarity and drive your success.",
+    "imageUrl": "/uploads/hero-background-3.png"
   },
   {
     "id": 2,
-    "title": "Your Trusted Partner in Mapping Excellence",
-    "subtitle": "Delivering high-quality solutions with precision, innovation, and unwavering reliability for your success.",
+    "title": "Precision Geospatial Solutions",
+    "subtitle": "From custom mapping to enterprise-level integration, we deliver excellence and reliability in every project.",
     "imageUrl": "/uploads/hero-background-2.png"
   },
   {
     "id": 3,
-    "title": "Pioneering a Smarter, Connected World",
-    "subtitle": "Leveraging advanced analytics and cutting-edge technology to solve tomorrow's challenges today.",
-    "imageUrl": "/uploads/hero-background-3.jpg"
+    "title": "Advanced Analytics & Future-Ready Tech",
+    "subtitle": "We employ cutting-edge technology and predictive analytics to solve complex challenges and pioneer a smarter world.",
+    "imageUrl": "/uploads/hero-background.png"
   },
   {
     "id": 4,
-    "title": "Unlocking Your Competitive Edge",
-    "subtitle": "We integrate the power of location to provide a clearer path to success and measurable results.",
-    "imageUrl": "/uploads/hero-background-1.jpg"
+    "title": "Gain Your Competitive Edge",
+    "subtitle": "Unlock new opportunities and achieve measurable results by integrating the power of location into your business strategy.",
+    "imageUrl": "/uploads/hero-background-1.png"
   }
 ]

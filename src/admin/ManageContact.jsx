@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebaseConfig'; // Import the Firebase database instance
+import { db } from '../firebaseConfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const ManageContact = () => {
   const [contactData, setContactData] = useState({ address: '', phone: '', email: '' });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Function to fetch data from Firestore
   const fetchContactData = async () => {
     setIsLoading(true);
     try {
@@ -22,12 +21,10 @@ const ManageContact = () => {
     setIsLoading(false);
   };
   
-  // Run the fetch function once on component mount
   useEffect(() => {
     fetchContactData();
   }, []);
 
-  // Function to save data back to Firestore
   const handleSave = async () => {
     setIsLoading(true);
     try {
@@ -40,34 +37,33 @@ const ManageContact = () => {
     setIsLoading(false);
   };
 
-  // Standard input handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setContactData(prev => ({ ...prev, [name]: value }));
   };
 
-  if (isLoading) return <p className="text-white">Loading Contact Info...</p>;
+  if (isLoading) return <p className="text-text-secondary">Loading Contact Info...</p>;
 
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-yellow-400">Manage Contact Info</h1>
+        <h1 className="text-4xl font-bold text-accent">Manage Contact Info</h1>
         <button onClick={handleSave} className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600" disabled={isLoading}>
           {isLoading ? 'Saving...' : 'Save Changes'}
         </button>
       </div>
-      <div className="bg-gray-800 p-6 rounded-lg space-y-6">
+      <div className="bg-secondary-bg p-6 rounded-lg space-y-6 border border-border-color">
         <div>
-          <label className="block text-lg font-bold text-gray-300 mb-2">Address</label>
-          <input type="text" name="address" value={contactData.address} onChange={handleInputChange} className="w-full p-2 bg-gray-700 rounded text-white" />
+          <label className="block text-lg font-bold text-text-secondary mb-2">Address</label>
+          <input type="text" name="address" value={contactData.address} onChange={handleInputChange} className="w-full p-2 bg-slate-100 border border-border-color rounded text-text-primary focus:ring-accent focus:border-accent" />
         </div>
         <div>
-          <label className="block text-lg font-bold text-gray-300 mb-2">Phone Number</label>
-          <input type="text" name="phone" value={contactData.phone} onChange={handleInputChange} className="w-full p-2 bg-gray-700 rounded text-white" />
+          <label className="block text-lg font-bold text-text-secondary mb-2">Phone Number</label>
+          <input type="text" name="phone" value={contactData.phone} onChange={handleInputChange} className="w-full p-2 bg-slate-100 border border-border-color rounded text-text-primary focus:ring-accent focus:border-accent" />
         </div>
         <div>
-          <label className="block text-lg font-bold text-gray-300 mb-2">Email Address</label>
-          <input type="email" name="email" value={contactData.email} onChange={handleInputChange} className="w-full p-2 bg-gray-700 rounded text-white" />
+          <label className="block text-lg font-bold text-text-secondary mb-2">Email Address</label>
+          <input type="email" name="email" value={contactData.email} onChange={handleInputChange} className="w-full p-2 bg-slate-100 border border-border-color rounded text-text-primary focus:ring-accent focus:border-accent" />
         </div>
       </div>
     </div>
