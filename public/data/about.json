@@ -1,10 +1,13 @@
 {
-  "history": "<p>Founded in 2015 by a team of passionate cartographers and data scientists, GeoSpatial Innovations was born from a shared vision: to unlock the hidden potential within geographic data. What began as a small consultancy in San Francisco has grown into a premier GIS powerhouse, serving a diverse clientele across both public and private sectors. We pride ourselves on a decade-plus journey of turning complex spatial problems into clear, actionable strategies.</p><p> </p>",
-  "mission": "We empower organizations with cutting-edge spatial intelligence solutions that enhance efficiency, sustainability, and smarter decision-making.",
-  "vision": "To be the leading force in applied geospatial technology, creating a smarter, more connected, and sustainable world through data-driven insights.",
+  "history": "<p>Welcome to RRTeCHGeo — a premier geospatial solutions company based in Bangalore, India, specializing in LiDAR processing, Scan-to-BIM, photogrammetry, orthophoto generation, GIS services, web development, and graphic design.</p><p>Since 2015, we’ve empowered organizations worldwide to turn complex geospatial data into clear, actionable insights that drive smarter decisions and real-world results.</p><p>We proudly serve industries including infrastructure, utilities, smart cities, mining, and environmental management, leveraging cutting-edge technology and workflows for maximum efficiency and accuracy.</p>",
+  "mission": "We transform spatial data into powerful visual stories that help you plan better, build smarter, and grow faster.",
+  "vision": "To be the partner where geospatial intelligence meets innovation, and your vision finds its map.",
   "values": [
-    "We are driven by our core values of Innovation, Integrity, Partnership, Excellence, and Accountability, shaping everything we do."
- 
+    "Precision",
+    "Innovation",
+    "Excellence",
+    "Reliability",
+    "Partnership"
   ],
-  "team_summary": "Our team is our greatest asset. We are a multidisciplinary group of certified GIS professionals, remote sensing analysts, software developers, and strategic thinkers. United by a passion for problem-solving, we thrive on collaboration and are committed to delivering excellence in every project we undertake.Our philosophy is simple: 'where' is the most critical question you can ask. By integrating this spatial context, we provide our clients with a profound competitive advantage and a clearer path to success."
-} 
+  "team_summary": "Our team of LiDAR specialists, Scan-to-BIM experts, photogrammetrists, GIS analysts, and creative designers is committed to precision, innovation, and excellence. From high-accuracy mapping, 3D modeling, and powerline classification to urban planning, environmental monitoring, and digital design solutions, we deliver reliable, scalable, and data-driven services tailored to your needs. At RRTechGeo, we don’t just process data — we bring geography to life."
+}
