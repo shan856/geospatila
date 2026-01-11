@@ -1,71 +1,49 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useInView, animate } from 'framer-motion';
-import { FaRegSmileBeam, FaRegFileAlt, FaRegStar, FaUserTie } from 'react-icons/fa';
+import React, { useEffect, useRef } from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
-const icons = {
-  FaRegSmileBeam: <FaRegSmileBeam />,
-  FaRegFileAlt: <FaRegFileAlt />,
-  FaRegStar: <FaRegStar />,
-  FaUserTie: <FaUserTie />,
-};
-
-function Counter({ from, to }) {
+const StatsCounter = ({ stats }) => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const controls = useAnimation();
 
   useEffect(() => {
-    if (inView) {
-      animate(from, to, {
-        duration: 2,
-        onUpdate(value) {
-          if (ref.current) {
-            ref.current.textContent = value.toFixed(0);
-          }
-        },
-      });
+    if (isInView) {
+      controls.start('visible');
     }
-  }, [from, to, inView]);
-
-  return <span ref={ref} />;
-}
-
-const StatsCounter = () => {
-  const [stats, setStats] = useState([]);
-
-  useEffect(() => {
-    fetch('/data/stats.json')
-      .then(res => res.json())
-      .then(data => setStats(data))
-      .catch(err => console.error("Could not load stats data:", err));
-  }, []);
+  }, [isInView, controls]);
 
   return (
-    // Main container with the background image
-    <div className="relative py-20 bg-cover bg-fixed bg-center" style={{ backgroundImage: "url('/uploads/stats-background.png')" }}>
-      
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-gray-900 bg-opacity-80"></div>
-
-      {/* Content Layer */}
-      <div className="relative container mx-auto px-6">
-        
-        {/* --- UPDATED: Grid with 4 columns for individual cards --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-white text-center">
-          {stats.map(stat => (
-            
-            // --- UPDATED: Styling is now applied to each individual card ---
-            <div key={stat.id} className="bg-black/20 backdrop-blur-sm border border-cyan-400/30 rounded-lg p-6 flex flex-col items-center justify-center shadow-lg">
-              <div className="text-4xl text-accent-light mb-3">{icons[stat.icon]}</div>
-              <div className="text-5xl font-bold">
-                <Counter from={0} to={stat.end} />+
-              </div>
-              <p className="text-lg mt-2 text-slate-300">{stat.label}</p>
-            </div>
-
-          ))}
-        </div>
-      </div>
-    </div>
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      className="grid grid-cols-2 md:grid-cols-4 gap-6"
+    >
+      {stats.map((stat, index) => (
+        <motion.div
+          key={index}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { delay: index * 0.15 }
+            }
+          }}
+          className="glass-card p-6 text-center group hover:shadow-card-hover transition-shadow duration-300"
+        >
+          <div className="icon-soft w-14 h-14 mx-auto mb-4 group-hover:bg-gradient-to-br group-hover:from-accent group-hover:to-geo-accent group-hover:text-white transition-all duration-300">
+            {stat.icon}
+          </div>
+          <div className="text-3xl md:text-4xl font-display font-bold text-gradient mb-2">
+            {stat.value}
+          </div>
+          <div className="text-sm text-text-secondary">
+            {stat.label}
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
   );
 };
 

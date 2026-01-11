@@ -22,5 +22,12 @@
     "title": "Gain Your Competitive Edge",
     "subtitle": "Unlock new opportunities and achieve measurable results by integrating the power of location into your business strategy.",
     "imageUrl": "/uploads/hero-background-1.png"
-  }
+  },
+{
+  "id": 5,
+  "title": "Innovating with Location Intelligence",
+  "subtitle": "Leverage smart geospatial insights to automate workflows, optimize operations, and transform the way you work.",
+  "imageUrl": "https://raw.githubusercontent.com/shan856/geospatila/main/uploads/GeoSpatial_9.jpeg"
+}
+
 ]

@@ -17,6 +17,7 @@ import AdminDashboard from './admin/AdminDashboard';
 import ManageProjects from './admin/ManageProjects';
 import ManageGallery from './admin/ManageGallery';
 import ManageContact from './admin/ManageContact';
+import ManageHeroSlides from './admin/ManageHeroSlides';
 import ScrollToTop from './components/ScrollToTop';
 
 // 3. THE OLD INSECURE FUNCTION IS NO LONGER NEEDED AND HAS BEEN REMOVED
@@ -70,6 +71,7 @@ const AnimatedRoutes = () => {
           <Route path="projects" element={<AnimatedPage><ManageProjects /></AnimatedPage>} />
           <Route path="gallery" element={<AnimatedPage><ManageGallery /></AnimatedPage>} />
           <Route path="contact" element={<AnimatedPage><ManageContact /></AnimatedPage>} />
+          <Route path="hero-slides" element={<AnimatedPage><ManageHeroSlides /></AnimatedPage>} />
         </Route>
       </Routes>
     </AnimatePresence>

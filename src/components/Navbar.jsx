@@ -1,73 +1,173 @@
-import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AnimatedHamburgerIcon = ({ isOpen, onClick }) => {
-  return (
-    <motion.button onClick={onClick} className="w-7 h-7 relative focus:outline-none focus:ring-2 focus:ring-accent rounded" animate={isOpen ? "open" : "closed"} aria-label="Toggle menu">
-      <motion.span variants={{ closed: { y: 0, rotate: 0 }, open: { y: 8, rotate: 45 } }} className="block absolute h-0.5 w-full bg-text-primary" style={{ top: '25%' }}/>
-      <motion.span variants={{ closed: { opacity: 1 }, open: { opacity: 0 } }} transition={{ duration: 0.1 }} className="block absolute h-0.5 w-full bg-text-primary" style={{ top: '50%' }}/>
-      <motion.span variants={{ closed: { y: 0, rotate: 0 }, open: { y: -8, rotate: -45 } }} className="block absolute h-0.5 w-full bg-text-primary" style={{ top: '75%' }}/>
-    </motion.button>
-  );
-};
-
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  const activeLinkClass = "text-accent"; 
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
-  const menuVariants = { 
-    hidden: { opacity: 0, y: -20 }, 
-    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 120 } }, 
-    exit: { opacity: 0, y: -20, transition: { duration: 0.2 } } 
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
+  const isActive = (path) => location.pathname === path;
 
   return (
-    // --- UPDATED: Increased transparency and blur effect ---
-    <header className="bg-secondary-bg/70 backdrop-blur-md sticky top-0 z-50 border-b border-white/20 shadow-sm">
-      <nav className="container mx-auto px-6 h-20 flex justify-between items-center">
-        
-        <Link to="/" className="flex items-center space-x-3">
-          <img src="https://raw.githubusercontent.com/shan856/geospatila/main/uploads/logo.png" alt="RRtechGeo Logo" className="h-12 w-12" />
-          <span className="font-bold text-xl text-yellow-500">RRtechGeo</span>
-        </Link>
-        
-        <ul className="hidden md:flex space-x-8 text-lg items-center text-text-secondary">
-          <li><NavLink to="/" className={({ isActive }) => isActive ? activeLinkClass : undefined} >Home</NavLink></li>
-          <li><NavLink to="/services" className={({ isActive }) => isActive ? activeLinkClass : undefined}>Services</NavLink></li>
-          <li><NavLink to="/projects" className={({ isActive }) => isActive ? activeLinkClass : undefined}>Projects</NavLink></li>
-          <li><NavLink to="/gallery" className={({ isActive }) => isActive ? activeLinkClass : undefined}>Gallery</NavLink></li>
-          <li><NavLink to="/about" className={({ isActive }) => isActive ? activeLinkClass : undefined}>About Us</NavLink></li>
-        </ul>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`fixed w-full z-50 transition-all duration-500 ${scrolled
+          ? 'py-3 glass-navbar'
+          : 'py-5 bg-transparent'
+        }`}
+    >
+      <div className="container-custom">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow duration-300">
+                <span className="text-white font-display font-bold text-lg">RR</span>
+              </div>
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-accent to-geo-accent opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl font-display font-bold text-text-primary">
+                RRtech<span className="text-gradient">Geo</span>
+              </span>
+              <span className="text-xs text-text-muted font-medium tracking-wider uppercase">
+                Geospatial Solutions
+              </span>
+            </div>
+          </Link>
 
-        <div className="hidden md:block">
-            <Link to="/contact" className="font-semibold text-white bg-accent hover:bg-accent-dark px-6 py-3 rounded-lg transition-colors duration-300">
-              Contact Us
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`relative px-5 py-2.5 rounded-xl font-medium text-sm transition-all duration-300 ${isActive(link.path)
+                    ? 'text-accent'
+                    : 'text-text-secondary hover:text-accent'
+                  }`}
+              >
+                {link.name}
+                {isActive(link.path) && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-accent/10 rounded-xl border border-accent/20"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </Link>
+            ))}
+          </div>
+
+          {/* CTA Button */}
+          <div className="hidden lg:block">
+            <Link
+              to="/contact"
+              className="btn-primary inline-flex items-center gap-2 text-sm"
+            >
+              Get Started
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden w-12 h-12 rounded-xl bg-secondary-bg flex items-center justify-center hover:bg-accent/10 transition-colors"
+          >
+            <div className="flex flex-col gap-1.5">
+              <motion.span
+                animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }}
+                className="w-6 h-0.5 bg-text-primary rounded-full block origin-center"
+              />
+              <motion.span
+                animate={{ opacity: isOpen ? 0 : 1 }}
+                className="w-6 h-0.5 bg-text-primary rounded-full block"
+              />
+              <motion.span
+                animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -8 : 0 }}
+                className="w-6 h-0.5 bg-text-primary rounded-full block origin-center"
+              />
+            </div>
+          </button>
         </div>
 
-        <div className="md:hidden">
-          <AnimatedHamburgerIcon isOpen={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)} />
-        </div>
-      </nav>
-      
-      <AnimatePresence>
-        {isMenuOpen && (
-          // --- UPDATED: Also applied the effect to the mobile menu ---
-          <motion.div initial="hidden" animate="visible" exit="exit" variants={menuVariants} className="md:hidden bg-secondary-bg/70 backdrop-blur-md border-t border-border-color">
-            <ul className="flex flex-col items-center space-y-6 py-8 text-text-primary">
-              <li><NavLink to="/" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeLinkClass : undefined}>Home</NavLink></li>
-              <li><NavLink to="/services" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeLinkClass : undefined}>Services</NavLink></li>
-              <li><NavLink to="/projects" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeLinkClass : undefined}>Projects</NavLink></li>
-              <li><NavLink to="/gallery" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeLinkClass : undefined}>Gallery</NavLink></li>
-              <li><NavLink to="/about" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeLinkClass : undefined}>About Us</NavLink></li>
-              <li><Link to="/contact" onClick={() => setIsMenuOpen(false)} className="font-semibold text-white bg-accent hover:bg-accent-dark px-5 py-2 rounded-lg">Contact Us</Link></li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden mt-4 pb-4"
+            >
+              <div className="bg-white rounded-2xl shadow-card p-4 space-y-2 border border-glass-border">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <Link
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className={`block px-4 py-3 rounded-xl font-medium transition-all duration-300 ${isActive(link.path)
+                          ? 'bg-accent/10 text-accent'
+                          : 'text-text-secondary hover:bg-secondary-bg hover:text-accent'
+                        }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="pt-2"
+                >
+                  <Link
+                    to="/contact"
+                    onClick={() => setIsOpen(false)}
+                    className="btn-primary w-full flex items-center justify-center gap-2"
+                  >
+                    Get Started
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.nav>
   );
 };
+
 export default Navbar;
