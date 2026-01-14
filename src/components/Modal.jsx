@@ -1,44 +1,66 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCheckCircle } from 'react-icons/fa';
 
-const Modal = ({ isOpen, onClose, title, children }) => {
-  const backdropVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+const Modal = ({ isOpen, onClose, title, children, type = 'info' }) => {
+  const typeStyles = {
+    info: { icon: 'ℹ️', gradient: 'from-accent to-geo-accent' },
+    success: { icon: '✅', gradient: 'from-geo-accent to-emerald-400' },
+    warning: { icon: '⚠️', gradient: 'from-amber-500 to-orange-500' },
+    error: { icon: '❌', gradient: 'from-red-500 to-rose-500' },
   };
 
-  const modalVariants = {
-    hidden: { opacity: 0, y: -50, scale: 0.9 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 300, damping: 30 } },
-    exit: { opacity: 0, scale: 0.9 },
-  };
+  const { icon, gradient } = typeStyles[type];
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4"
-          variants={backdropVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          onClick={onClose} // Close modal when clicking on the backdrop
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
         >
           <motion.div
-            className="bg-gray-800 rounded-lg shadow-2xl p-8 w-full max-w-md text-center"
-            variants={modalVariants}
-            onClick={(e) => e.stopPropagation()} // Prevent backdrop click when clicking on modal content
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
           >
-            <FaCheckCircle className="text-green-500 text-6xl mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">{title}</h2>
-            <p className="text-gray-400 mb-6">{children}</p>
-            <button
-              onClick={onClose}
-              className="btn-primary"
-            >
-              OK
-            </button>
+            {/* Header with gradient */}
+            <div className={`h-2 bg-gradient-to-r ${gradient}`} />
+
+            <div className="p-6">
+              <div className="flex items-start gap-4">
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-xl shadow-lg`}>
+                  {icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-display font-bold text-text-primary mb-2">
+                    {title}
+                  </h3>
+                  <div className="text-text-secondary">
+                    {children}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-glass-border">
+                <button
+                  onClick={onClose}
+                  className="px-6 py-2.5 rounded-xl font-medium text-text-secondary hover:bg-secondary-bg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onClose}
+                  className={`px-6 py-2.5 rounded-xl font-medium text-white bg-gradient-to-r ${gradient} hover:shadow-lg transition-shadow`}
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       )}

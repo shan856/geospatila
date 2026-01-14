@@ -11,7 +11,7 @@
     "title": "Spatial Data Science & Analytics",
     "description": "Data is just noise until you find the signal. We specialize in turning raw spatial data into clear, actionable intelligence.",
     "icon": "FaChartBar",
-    "imageUrl": "/uploads/service-analytics.jpg"
+    "imageUrl": "/uploads/service-analytics.png"
   },
   {
     "id": "remote-sensing",
@@ -25,7 +25,7 @@
     "title": "UAV/Drone Mapping & Survey",
     "description": "Deploying UAVs to capture high-resolution multispectral imagery for precise, variable-rate application of resources.",
     "icon": "FaHelicopter",
-    "imageUrl": "/uploads/service-drone.jpg"
+    "imageUrl": "/uploads/service-drone.png"
   },
   {
     "id": "geodatabase",
@@ -39,7 +39,7 @@
     "title": "3D City Modeling & Digital Twins",
     "description": "Creating realistic, data-rich 3D models of urban environments to support planning, simulation, and smart city initiatives.",
     "icon": "FaCube",
-    "imageUrl": "/uploads/service-3d-model.jpg"
+    "imageUrl": "/uploads/service-3d-model.png"
   },
   {
     "id": "gis-strategy",
