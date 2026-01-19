@@ -43,9 +43,13 @@ const AdminLogin = () => {
         <div className="glass-card p-8 rounded-2xl shadow-card">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center shadow-glow">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center shadow-glow p-3 overflow-hidden">
+              <svg viewBox="0 0 40 40" fill="none" className="w-full h-full text-white" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 12h5a4 4 0 0 1 0 8H8v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+                <path d="M23 12h5a4 4 0 0 1 0 8h-5v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+                <path d="M4 8 h32" strokeWidth="1.5" stroke="#a5f3fc" strokeOpacity="0.8" className="animate-lidar drop-shadow-md" />
+                <circle cx="35" cy="12" r="1.5" fill="white" className="animate-ping" style={{ animationDuration: '3s' }} />
+                <circle cx="5" cy="28" r="1" fill="white" fillOpacity="0.6" />
               </svg>
             </div>
             <h1 className="text-2xl font-display font-bold text-text-primary">Admin Panel</h1>

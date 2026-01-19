@@ -36,8 +36,14 @@ const AdminLayout = () => {
       {/* Logo */}
       <div className="p-6 border-b border-glass-border">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center shadow-lg">
-            <span className="text-white font-display font-bold text-sm">RR</span>
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center shadow-lg p-2 overflow-hidden">
+            <svg viewBox="0 0 40 40" fill="none" className="w-full h-full text-white" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M8 12h5a4 4 0 0 1 0 8H8v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+              <path d="M23 12h5a4 4 0 0 1 0 8h-5v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+              <path d="M4 8 h32" strokeWidth="1.5" stroke="#a5f3fc" strokeOpacity="0.8" className="animate-lidar drop-shadow-md" />
+              <circle cx="35" cy="12" r="1.5" fill="white" className="animate-ping" style={{ animationDuration: '3s' }} />
+              <circle cx="5" cy="28" r="1" fill="white" fillOpacity="0.6" />
+            </svg>
           </div>
           <div>
             <h1 className="text-lg font-display font-bold text-text-primary">Admin CMS</h1>
@@ -120,8 +126,12 @@ const AdminLayout = () => {
           {/* Mobile Header */}
           <header className="md:hidden bg-white/80 backdrop-blur-xl p-4 flex justify-between items-center border-b border-glass-border shadow-soft">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center">
-                <span className="text-white font-display font-bold text-xs">RR</span>
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center p-1.5 overflow-hidden">
+                <svg viewBox="0 0 40 40" fill="none" className="w-full h-full text-white" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M8 12h5a4 4 0 0 1 0 8H8v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+                  <path d="M23 12h5a4 4 0 0 1 0 8h-5v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+                  <path d="M4 8 h32" strokeWidth="1.5" stroke="#a5f3fc" strokeOpacity="0.8" className="animate-lidar drop-shadow-md" />
+                </svg>
               </div>
               <span className="font-display font-bold text-text-primary">Admin CMS</span>
             </div>
