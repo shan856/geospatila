@@ -69,22 +69,22 @@ const Navbar = () => {
                       </linearGradient>
                     </defs>
                     
-                    {/* Letters 'g' and 'e' using the app's font for consistency */}
-                    <text x="0" y="22" fontFamily="Outfit, sans-serif" fontWeight="700" fontSize="24" fill="url(#geoGradient)">ge</text>
+                    {/* Letters 'g' and 'e' */}
+                    <text x="0" y="22" fontFamily="Outfit, sans-serif" fontWeight="700" fontSize="26" fill="url(#geoGradient)">ge</text>
                     
-                    {/* Compass 'o' - aligned next to 'e' */}
-                    <g transform="translate(42, 14)">
-                      {/* Outer Ring */}
-                      <circle cx="0" cy="0" r="9" stroke="url(#geoGradient)" strokeWidth="2.5" fill="none" />
+                    {/* Compass 'o' - Resized to match text x-height */}
+                    <g transform="translate(44, 15)">
+                      {/* Outer Ring - Reduced radius from 9 to 7.5 */}
+                      <circle cx="0" cy="0" r="7.5" stroke="url(#geoGradient)" strokeWidth="2.5" fill="none" />
                       
-                      {/* Compass Needle */}
-                      <path d="M0 -7 L3 0 L0 7 L-3 0 Z" fill="#2DD4BF" className="animate-pulse origin-center rotate-45" />
-                      <circle cx="0" cy="0" r="1.5" fill="white" />
+                      {/* Compass Needle - Scaled down */}
+                      <path d="M0 -6 L2.5 0 L0 6 L-2.5 0 Z" fill="#2DD4BF" className="animate-pulse origin-center rotate-45" />
+                      <circle cx="0" cy="0" r="1.2" fill="white" />
                       
-                      {/* Particles */}
-                      <circle cx="6" cy="-6" r="1" fill="#2DD4BF" opacity="0.8" />
-                      <circle cx="8" cy="-8" r="0.8" fill="#2DD4BF" opacity="0.6" />
-                      <circle cx="10" cy="-5" r="0.6" fill="#2DD4BF" opacity="0.4" />
+                      {/* Particles - Tightened */}
+                      <circle cx="5" cy="-5" r="0.8" fill="#2DD4BF" opacity="0.8" />
+                      <circle cx="7" cy="-7" r="0.6" fill="#2DD4BF" opacity="0.6" />
+                      <circle cx="9" cy="-4" r="0.5" fill="#2DD4BF" opacity="0.4" />
                     </g>
                   </svg>
                 </div>
