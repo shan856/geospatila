@@ -108,6 +108,24 @@ h6 {
   }
 }
 
+@keyframes lidarScan {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translateY(20px);
+    opacity: 1;
+  }
+}
+
+.animate-lidar {
+  animation: lidarScan 2.5s ease-in-out infinite;
+}
+
 /* ============================================
    Glassmorphism Components
    ============================================ */

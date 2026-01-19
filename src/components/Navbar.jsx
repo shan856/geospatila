@@ -41,8 +41,19 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow duration-300">
-                <span className="text-white font-display font-bold text-lg">RR</span>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-geo-accent flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow duration-300 p-2 overflow-hidden">
+                <svg viewBox="0 0 40 40" fill="none" className="w-full h-full text-white" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  {/* The Letters RR - Centered and Bolder */}
+                  <path d="M8 12h5a4 4 0 0 1 0 8H8v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+                  <path d="M23 12h5a4 4 0 0 1 0 8h-5v-8zm0 8h4l3 7" strokeOpacity="0.95" />
+                  
+                  {/* LiDAR Scan Beam - Animated */}
+                  <path d="M4 8 h32" strokeWidth="1.5" stroke="#a5f3fc" strokeOpacity="0.8" className="animate-lidar drop-shadow-md" />
+                  
+                  {/* Static Scan artifacts */}
+                  <circle cx="35" cy="12" r="1.5" fill="white" className="animate-ping" style={{ animationDuration: '3s' }} />
+                  <circle cx="5" cy="28" r="1" fill="white" fillOpacity="0.6" />
+                </svg>
               </div>
               <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-accent to-geo-accent opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300" />
             </div>
