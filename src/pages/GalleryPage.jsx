@@ -13,6 +13,15 @@ const GalleryPage = () => {
 
   // Fetch gallery from Firebase
   useEffect(() => {
+    const sampleImages = [
+      { id: 1, src: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800', category: 'Aerial', title: 'Coastal Aerial View' },
+      { id: 2, src: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=800', category: 'Mapping', title: 'Terrain Mapping' },
+      { id: 3, src: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800', category: 'Satellite', title: 'City Grid Analysis' },
+      { id: 4, src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800', category: 'Satellite', title: 'Night Lights Data' },
+      { id: 5, src: 'https://images.unsplash.com/photo-1527489377706-5bf97e608852?w=800', category: 'Drone', title: 'Agricultural Survey' },
+      { id: 6, src: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=800', category: 'Aerial', title: 'Urban Development' },
+    ];
+
     const fetchGallery = async () => {
       setIsLoading(true);
       try {
@@ -40,15 +49,6 @@ const GalleryPage = () => {
 
     fetchGallery();
   }, []);
-
-  const sampleImages = [
-    { id: 1, src: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800', category: 'Aerial', title: 'Coastal Aerial View' },
-    { id: 2, src: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=800', category: 'Mapping', title: 'Terrain Mapping' },
-    { id: 3, src: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800', category: 'Satellite', title: 'City Grid Analysis' },
-    { id: 4, src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800', category: 'Satellite', title: 'Night Lights Data' },
-    { id: 5, src: 'https://images.unsplash.com/photo-1527489377706-5bf97e608852?w=800', category: 'Drone', title: 'Agricultural Survey' },
-    { id: 6, src: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=800', category: 'Aerial', title: 'Urban Development' },
-  ];
 
   // Get unique categories from images
   const categories = ['All', ...new Set(images.map(img => img.category).filter(Boolean))];

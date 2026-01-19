@@ -14,6 +14,33 @@ const ProjectsPage = () => {
 
   // Fetch projects from Firebase
   useEffect(() => {
+    const sampleProjects = [
+      {
+        id: 1,
+        title: 'Urban Development Mapping',
+        category: 'GIS Mapping',
+        description: 'Comprehensive land use mapping for a 500-acre urban development project, enabling informed planning decisions.',
+        results: ['200+ map layers', '95% accuracy', '30% faster planning'],
+        image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600',
+      },
+      {
+        id: 2,
+        title: 'Agricultural Drone Survey',
+        category: 'Drone Surveying',
+        description: 'Multi-spectral drone surveys of 10,000 hectares of farmland for precision agriculture implementation.',
+        results: ['10,000 ha surveyed', 'NDVI analysis', '25% yield increase'],
+        image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600',
+      },
+      {
+        id: 3,
+        title: 'Forest Conservation Analysis',
+        category: 'Remote Sensing',
+        description: 'Satellite-based deforestation monitoring and forest health assessment for conservation efforts.',
+        results: ['50,000 km² monitored', 'Change detection', 'Real-time alerts'],
+        image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600',
+      },
+    ];
+
     const fetchProjects = async () => {
       setIsLoading(true);
       try {
@@ -44,33 +71,6 @@ const ProjectsPage = () => {
 
     fetchProjects();
   }, []);
-
-  const sampleProjects = [
-    {
-      id: 1,
-      title: 'Urban Development Mapping',
-      category: 'GIS Mapping',
-      description: 'Comprehensive land use mapping for a 500-acre urban development project, enabling informed planning decisions.',
-      results: ['200+ map layers', '95% accuracy', '30% faster planning'],
-      image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600',
-    },
-    {
-      id: 2,
-      title: 'Agricultural Drone Survey',
-      category: 'Drone Surveying',
-      description: 'Multi-spectral drone surveys of 10,000 hectares of farmland for precision agriculture implementation.',
-      results: ['10,000 ha surveyed', 'NDVI analysis', '25% yield increase'],
-      image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600',
-    },
-    {
-      id: 3,
-      title: 'Forest Conservation Analysis',
-      category: 'Remote Sensing',
-      description: 'Satellite-based deforestation monitoring and forest health assessment for conservation efforts.',
-      results: ['50,000 km² monitored', 'Change detection', 'Real-time alerts'],
-      image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600',
-    },
-  ];
 
   // Get unique categories from projects
   const categories = ['All', ...new Set(projects.map(p => p.category).filter(Boolean))];

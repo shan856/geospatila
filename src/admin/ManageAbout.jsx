@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaPlus, FaSave, FaTimes, FaEdit, FaTrash, FaUsers, FaHistory, FaHeart } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaPlus, FaSave, FaTrash, FaUsers, FaHistory, FaHeart } from 'react-icons/fa';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useToast } from '../components/Toast';

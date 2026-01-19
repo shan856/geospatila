@@ -12,7 +12,7 @@ const ContactPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+
 
   // Default contact info - San Francisco location (from original project)
   const [contactInfo, setContactInfo] = useState({
@@ -26,7 +26,7 @@ const ContactPage = () => {
   // Load contact info from Firebase first, then fallback to JSON
   useEffect(() => {
     const fetchContactInfo = async () => {
-      setIsLoading(true);
+
       try {
         // Try Firebase first
         const docRef = doc(db, 'single_pages', 'contact');
@@ -64,7 +64,7 @@ const ContactPage = () => {
       } catch (error) {
         console.log('Using default contact info');
       }
-      setIsLoading(false);
+
     };
 
     fetchContactInfo();

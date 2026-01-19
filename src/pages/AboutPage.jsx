@@ -38,11 +38,11 @@ const AboutPage = () => {
       { name: 'Neha Singh', role: 'Project Manager', specialty: 'Client Relations' },
     ],
   });
-  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchAboutData = async () => {
-      setIsLoading(true);
+
       try {
         const docRef = doc(db, 'single_pages', 'about');
         const docSnap = await getDoc(docRef);
@@ -52,7 +52,7 @@ const AboutPage = () => {
       } catch (error) {
         console.log('Using default about data');
       }
-      setIsLoading(false);
+
     };
 
     fetchAboutData();
