@@ -72,21 +72,26 @@ const Navbar = () => {
                     {/* Letters 'g' and 'e' */}
                     <text x="0" y="22" fontFamily="Outfit, sans-serif" fontWeight="700" fontSize="26" fill="url(#geoGradient)">ge</text>
                     
-                    {/* Compass 'o' - Custom Design matching reference */}
-                    <g transform="translate(45, 15)">
-                      {/* Split Ring (Arc) - rotated slightly */}
-                      <path d="M-6.5 3.75 A 7.5 7.5 0 1 1 3.75 -6.5" fill="none" stroke="url(#geoGradient)" strokeWidth="2.5" strokeLinecap="round" transform="rotate(-20)" />
+                    {/* Compass 'o' - Corrected Top-Right Gap */}
+                    <g transform="translate(44, 15)">
+                      {/* 
+                         Circle with gap at Top-Right (45 degrees).
+                         Start: Angle 70 deg (Top) -> (2.5, -7.0)
+                         End: Angle 20 deg (Right) -> (7.0, -2.5)
+                         Draws clockwise (Sweep 1) to create the full circle except the gap.
+                      */}
+                      <path d="M 2.5 -7.0 A 7.5 7.5 0 1 1 7.0 -2.5" fill="none" stroke="url(#geoGradient)" strokeWidth="2.5" strokeLinecap="round" />
                       
-                      {/* Prominent Diamond Needle */}
-                      <path d="M0 -8 L3 0 L0 8 L-3 0 Z" fill="#2DD4BF" className="origin-center rotate-45" />
+                      {/* Needle - Centered, pointing to gap */}
+                      <path d="M0 -7 L3 0 L0 7 L-3 0 Z" fill="#2DD4BF" className="origin-center rotate-45" />
                       <circle cx="0" cy="0" r="1.5" fill="white" />
                       
-                      {/* Scattered Particles (Top Right) */}
-                      <circle cx="7" cy="-7" r="1" fill="#2DD4BF" opacity="0.9" />
-                      <circle cx="9" cy="-9" r="0.8" fill="#2DD4BF" opacity="0.7" />
-                      <circle cx="11" cy="-6" r="0.6" fill="#2DD4BF" opacity="0.5" />
-                      <circle cx="8" cy="-11" r="0.5" fill="#2DD4BF" opacity="0.4" />
-                      <circle cx="12" cy="-9" r="0.4" fill="#2DD4BF" opacity="0.3" />
+                      {/* Particles - Emitting from gap */}
+                      <g transform="translate(5, -5)">
+                        <circle cx="1" cy="-1" r="0.8" fill="#2DD4BF" opacity="0.9" />
+                        <circle cx="3" cy="-3" r="0.6" fill="#2DD4BF" opacity="0.7" />
+                        <circle cx="5" cy="0" r="0.4" fill="#2DD4BF" opacity="0.5" />
+                      </g>
                     </g>
                   </svg>
                 </div>
