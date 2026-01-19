@@ -31,8 +31,8 @@ const SEO = ({ title, description, keywords, image, url }) => {
     const fullTitle = title ? `${title} | ${siteTitle}` : `${siteTitle} | Expert GIS & Geospatial Solutions`;
     const metaDesc = description || dynamicSEO.metaDescription || "Expert GIS solutions, drone mapping, and remote sensing services.";
     const metaKeywords = keywords || dynamicSEO.keywords || "GIS, geospatial, mapping, drone surveys, remote sensing, spatial analytics";
-    const metaUrl = url || "https://rrtechgeo.com";
-    const metaImage = image || "https://rrtechgeo.com/og-image.png";
+    const metaUrl = url || "https://www.rrtechgeo.in";
+    const metaImage = image || "https://www.rrtechgeo.in/og-image.png";
 
     return (
         <Helmet>
