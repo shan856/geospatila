@@ -72,25 +72,23 @@ const Navbar = () => {
                     {/* Letters 'g' and 'e' */}
                     <text x="0" y="22" fontFamily="Outfit, sans-serif" fontWeight="700" fontSize="26" fill="url(#geoGradient)">ge</text>
                     
-                    {/* Compass 'o' - Corrected Top-Right Gap */}
+                    {/* Compass 'o' - Corrected Alignment */}
                     <g transform="translate(44, 15)">
-                      {/* 
-                         Circle with gap at Top-Right (45 degrees).
-                         Start: Angle 70 deg (Top) -> (2.5, -7.0)
-                         End: Angle 20 deg (Right) -> (7.0, -2.5)
-                         Draws clockwise (Sweep 1) to create the full circle except the gap.
-                      */}
+                      {/* Circle with gap at Top-Right (45 degrees) */}
                       <path d="M 2.5 -7.0 A 7.5 7.5 0 1 1 7.0 -2.5" fill="none" stroke="url(#geoGradient)" strokeWidth="2.5" strokeLinecap="round" />
                       
-                      {/* Needle - Centered, pointing to gap */}
-                      <path d="M0 -7 L3 0 L0 7 L-3 0 Z" fill="#2DD4BF" className="origin-center rotate-45" />
+                      {/* Needle - Centered and pointing to gap */}
+                      <g transform="rotate(45)">
+                        <path d="M0 -3 L2.5 0 L0 3 L-2.5 0 Z" fill="#2DD4BF" className="origin-center" />
+                        <path d="M0 -10 L0 -5" stroke="#2DD4BF" strokeWidth="1.5" strokeLinecap="round" />
+                      </g>
                       <circle cx="0" cy="0" r="1.5" fill="white" />
                       
                       {/* Particles - Emitting from gap */}
-                      <g transform="translate(5, -5)">
-                        <circle cx="1" cy="-1" r="0.8" fill="#2DD4BF" opacity="0.9" />
-                        <circle cx="3" cy="-3" r="0.6" fill="#2DD4BF" opacity="0.7" />
-                        <circle cx="5" cy="0" r="0.4" fill="#2DD4BF" opacity="0.5" />
+                      <g transform="translate(6, -6)">
+                        <circle cx="0" cy="0" r="0.8" fill="#2DD4BF" opacity="0.9" />
+                        <circle cx="2" cy="-2" r="0.6" fill="#2DD4BF" opacity="0.7" />
+                        <circle cx="4" cy="-4" r="0.4" fill="#2DD4BF" opacity="0.5" />
                       </g>
                     </g>
                   </svg>
