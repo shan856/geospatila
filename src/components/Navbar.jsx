@@ -58,8 +58,40 @@ const Navbar = () => {
               <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-accent to-geo-accent opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-display font-bold text-text-primary">
-                RRtech<span className="text-gradient">Geo</span>
+              <span className="text-xl font-display font-bold text-text-primary flex items-center gap-0.5">
+                RRtech
+                <div className="h-6 w-auto flex items-center text-accent">
+                  <svg viewBox="0 0 100 40" className="h-full w-auto" fill="none">
+                    {/* Definition for gradient */}
+                    <defs>
+                      <linearGradient id="geoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#2DD4BF" />
+                        <stop offset="100%" stopColor="#0F766E" />
+                      </linearGradient>
+                    </defs>
+                    
+                    {/* Letter g */}
+                    <path d="M15 26c0 4.5-3.5 8-8 8s-8-3.5-8-8c0-3.5 2-6.5 5-7.5V16c-5 1.5-8 6-8 11.5 0 7 5.5 12.5 12.5 12.5 4.5 0 8.5-2.5 10.5-6v-6h-4v6zM15 20v-4c0-4.5-3.5-8-8-8s-8 3.5-8 8v4h16z" fill="url(#geoGradient)" transform="translate(0, -2) scale(0.9)" />
+                    
+                    {/* Letter e */}
+                    <path d="M42 21h-16c.5 5 4.5 8.5 9.5 8.5 3 0 5.5-1.5 7-3.5l3.5 2.5c-2.5 3.5-6.5 6-11.5 6-8 0-14-6-14-14s6-14 14-14 14 6 14 14v.5zm-4.5-3.5c-.5-3.5-3.5-6-7.5-6-4 0-7 2.5-7.5 6h15z" fill="url(#geoGradient)" transform="translate(0, -2) scale(0.9)" />
+                    
+                    {/* Stylized Letter o (Compass) */}
+                    <g transform="translate(72, 17) scale(0.9)">
+                      {/* Outer Ring */}
+                      <path d="M0 -14 A14 14 0 1 0 0 14 A14 14 0 1 0 0 -14 Z M0 -10 A10 10 0 1 1 0 10 A10 10 0 1 1 0 -10 Z" fill="url(#geoGradient)" />
+                      {/* Compass Needle */}
+                      <path d="M0 -12 L3 0 L0 12 L-3 0 Z" fill="#2DD4BF" className="animate-pulse" />
+                      <circle cx="0" cy="0" r="1.5" fill="white" />
+                      
+                      {/* Particles */}
+                      <circle cx="8" cy="-8" r="1" fill="#2DD4BF" opacity="0.8" />
+                      <circle cx="11" cy="-10" r="0.8" fill="#2DD4BF" opacity="0.6" />
+                      <circle cx="13" cy="-7" r="0.6" fill="#2DD4BF" opacity="0.4" />
+                      <circle cx="9" cy="-12" r="0.5" fill="#2DD4BF" opacity="0.5" />
+                    </g>
+                  </svg>
+                </div>
               </span>
               <span className="text-xs text-text-muted font-medium tracking-wider uppercase">
                 Geospatial Solutions
