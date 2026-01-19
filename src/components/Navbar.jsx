@@ -72,8 +72,8 @@ const Navbar = () => {
                     {/* Letters 'g' and 'e' */}
                     <text x="0" y="24" fontFamily="Outfit, sans-serif" fontWeight="700" fontSize="28" fill="url(#geoGradient)">ge</text>
                     
-                    {/* Compass 'o' - Corrected Alignment */}
-                    <g transform="translate(46, 17)">
+                    {/* Compass 'o' - Corrected Vertical Alignment to y=19 */}
+                    <g transform="translate(46, 19)">
                       {/* Circle with gap at Top-Right (45 degrees) */}
                       <path d="M 2.5 -7.0 A 7.5 7.5 0 1 1 7.0 -2.5" fill="none" stroke="url(#geoGradient)" strokeWidth="3" strokeLinecap="round" />
                       
