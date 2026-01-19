@@ -72,23 +72,22 @@ const Navbar = () => {
                     {/* Letters 'g' and 'e' */}
                     <text x="0" y="24" fontFamily="Outfit, sans-serif" fontWeight="700" fontSize="28" fill="url(#geoGradient)">ge</text>
                     
-                    {/* Compass 'o' - Corrected Vertical Alignment to y=18 (Golden Mean) */}
-                    <g transform="translate(46, 18)">
-                      {/* Circle with gap at Top-Right (45 degrees) */}
-                      <path d="M 2.5 -7.0 A 7.5 7.5 0 1 1 7.0 -2.5" fill="none" stroke="url(#geoGradient)" strokeWidth="3" strokeLinecap="round" />
+                    {/* Compass 'o' - User's Custom Position */}
+                    <g transform="translate(33, 26)">
+                      {/* Circle with Gap (Top-Right) */}
+                      <path d="M 2.12 -7.2 A 7.5 7.5 0 1 1 7.2 -2.12" fill="none" stroke="url(#geoGradient)" strokeWidth="3" strokeLinecap="round" />
                       
-                      {/* Needle - Centered and pointing to gap */}
-                      <g transform="rotate(45)">
-                        <path d="M0 -3 L3 0 L0 3 L-3 0 Z" fill="#2DD4BF" className="origin-center" />
-                        <path d="M0 -10 L0 -5" stroke="#2DD4BF" strokeWidth="1.5" strokeLinecap="round" />
+                      {/* Particles - Appearing from the gap */}
+                      <g transform="translate(2, -2)">
+                         <circle cx="2" cy="-2" r="0.8" fill="#2DD4BF" opacity="0.8" />
+                         
                       </g>
-                      <circle cx="0" cy="0" r="1.5" fill="white" />
-                      
-                      {/* Particles - Emitting from gap */}
-                      <g transform="translate(6, -6)">
-                        <circle cx="0" cy="0" r="0.9" fill="#2DD4BF" opacity="0.9" />
-                        <circle cx="2.5" cy="-2.5" r="0.7" fill="#2DD4BF" opacity="0.7" />
-                        <circle cx="5" cy="-5" r="0.5" fill="#2DD4BF" opacity="0.5" />
+
+                      {/* Launching Arrow - Preserved */}
+                      <g transform="translate(9, -9) rotate(45)">
+                       <path d="M0 -6 L2.5 0 L0 6 L-2.5 0 Z" fill="#2DD4BF" />
+                        {/* Center Dot (Pivot) */}
+                       <circle cx="0" cy="0" r="1.5" fill="white" />
                       </g>
                     </g>
                   </svg>
