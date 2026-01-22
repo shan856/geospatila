@@ -279,34 +279,6 @@ const ServicesPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Technologies Section */}
-      <section className="relative py-24 bg-secondary-bg">
-        <div className="container-custom">
-          <SectionTitle
-            subtitle="Technologies"
-            title="Tools We Use"
-            description="Industry-leading software and platforms for delivering exceptional results."
-          />
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-6"
-          >
-            {['ArcGIS', 'QGIS', 'Google Earth Engine', 'Pix4D', 'DJI Terra', 'AutoCAD', 'Python', 'PostGIS'].map((tech, index) => (
-              <motion.div
-                key={tech}
-                whileHover={{ y: -4, scale: 1.02 }}
-                className="px-8 py-4 bg-white rounded-xl border border-glass-border shadow-soft text-text-primary font-semibold hover:shadow-card-hover hover:border-accent/30 transition-all duration-300"
-              >
-                {tech}
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 };
