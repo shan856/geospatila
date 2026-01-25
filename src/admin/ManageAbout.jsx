@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaPlus, FaSave, FaTrash, FaUsers, FaHistory, FaHeart } from 'react-icons/fa';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../firebaseConfig';
 import { useToast } from '../components/Toast';
 
 const ManageAbout = () => {
@@ -145,6 +146,23 @@ const ManageAbout = () => {
             ...prev,
             team: prev.team.filter((_, i) => i !== index),
         }));
+    };
+
+    const handleImageUpload = async (index, file) => {
+        if (!file) return;
+
+        try {
+            toast.success('Uploading image...');
+            const storageRef = ref(storage, `team-images/${Date.now()}_${file.name}`);
+            await uploadBytes(storageRef, file);
+            const downloadURL = await getDownloadURL(storageRef);
+
+            updateTeamMember(index, 'image', downloadURL);
+            toast.success('Image uploaded successfully!');
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            toast.error('Failed to upload image.');
+        }
     };
 
     const tabs = [
@@ -369,6 +387,25 @@ const ManageAbout = () => {
                                     <FaTrash />
                                 </button>
                                 <div className="grid md:grid-cols-3 gap-4">
+                                    <div className="md:col-span-3">
+                                        <label className="block text-xs text-text-muted mb-1">Profile Image</label>
+                                        <div className="flex items-center gap-4">
+                                            {member.image && (
+                                                <img src={member.image} alt={member.name} className="w-16 h-16 rounded-full object-cover border border-white/20" />
+                                            )}
+                                            <input 
+                                                type="file" 
+                                                onChange={(e) => handleImageUpload(index, e.target.files[0])}
+                                                className="block w-full text-sm text-text-secondary
+                                                    file:mr-4 file:py-2 file:px-4
+                                                    file:rounded-full file:border-0
+                                                    file:text-sm file:font-semibold
+                                                    file:bg-accent/10 file:text-accent
+                                                    hover:file:bg-accent/20
+                                                "
+                                            />
+                                        </div>
+                                    </div>
                                     <div>
                                         <label className="block text-xs text-text-muted mb-1">Name</label>
                                         <input

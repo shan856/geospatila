@@ -6,6 +6,7 @@ import SectionTitle from '../components/SectionTitle';
 import Card from '../components/Card';
 import FloatingOrbs from '../components/FloatingOrbs';
 import SEO from '../components/SEO';
+import aboutHeroImage from '../assets/geospatial_about_hero.png';
 
 const AboutPage = () => {
   const [aboutData, setAboutData] = useState({
@@ -106,16 +107,14 @@ const AboutPage = () => {
               animate={{ opacity: 1, x: 0 }}
               className="relative"
             >
-              <div className="glass-card p-8">
-                <div className="aspect-square rounded-xl bg-gradient-to-br from-accent/10 to-geo-accent/10 flex items-center justify-center">
-                  <div className="relative">
-                    <div className="w-48 h-48 rounded-full bg-gradient-to-br from-accent to-geo-accent opacity-20 animate-pulse" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-24 h-24 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  </div>
+              <div className="glass-card p-2 md:p-4">
+                <div className="aspect-square rounded-xl overflow-hidden relative">
+                   <img 
+                    src={aboutHeroImage} 
+                    alt="Geospatial Innovation" 
+                    className="w-full h-full object-cover rounded-xl"
+                   />
+                   <div className="absolute inset-0 bg-accent/10 mix-blend-overlay"></div> 
                 </div>
               </div>
             </motion.div>
@@ -222,10 +221,18 @@ const AboutPage = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <Card variant="elevated" className="text-center group">
-                  <div className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-accent/20 to-geo-accent/20 flex items-center justify-center group-hover:from-accent group-hover:to-geo-accent transition-all duration-300">
-                    <svg className="w-12 h-12 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
+                  <div className="w-24 h-24 mx-auto mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-accent/20 to-geo-accent/20 flex items-center justify-center group-hover:from-accent group-hover:to-geo-accent transition-all duration-300">
+                    {member.image ? (
+                        <img 
+                            src={member.image} 
+                            alt={member.name}
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <svg className="w-12 h-12 text-accent group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    )}
                   </div>
                   <h4 className="text-lg font-semibold text-text-primary mb-1">
                     {member.name}
