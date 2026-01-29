@@ -58,8 +58,8 @@ const Navbar = () => {
               <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-accent to-geo-accent opacity-0 group-hover:opacity-20 blur-lg transition-opacity duration-300" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-display font-bold text-text-primary flex items-center gap-0.5">
-                RRtech
+              <span className="text-xl font-display font-bold bg-gradient-to-r from-red-600 to-teal-400 bg-clip-text text-transparent flex items-center gap-0.5">
+                <span>RRT<span className="uppercase text-sm">e</span>CH</span>
                 <div className="h-8 w-auto flex items-center text-accent ml-0.5">
                   <svg viewBox="0 0 70 30" className="h-full w-auto" overflow="visible">
                     <defs>
